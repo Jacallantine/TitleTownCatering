@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif; /* Set a font for the body */
+    background-color: #1f1f1f; /* Dark background for the page */
+    color: white;
+}
+
+#submitTime{
+    display: flex;
+    margin: auto;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 75px;
+}
+.calendar {
+    display: flex;
+    flex-wrap: wrap;
+    width: 700px;
+    margin: 20px;
+    
+}
+
+.day {
+    width: 80px;
+    height: 80px;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(88, 141, 255);
+    cursor: pointer;
+    background-color: rgba(88, 141, 255, 0.349);
+}
+
+.selected {
+    background-color: lightblue;
+}
+
+.hour-picker {
+    margin-top: 20px;
+    display: none;
+}
+
+.selected-dates {
+    margin-top: 20px;
+}
+
+.hour {
+    display: inline-block;
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid rgb(88, 141, 255);
+    background-color: #808080;
+    cursor: pointer;
+}
+
+.hour.selected {
+    background-color: lightcoral;
+}
+
+.hour.disabled {
+    background-color:  #1f1f1f;
+    cursor: not-allowed;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+    margin-bottom: 20px;
+}
+
+#monthLabel{
+   font-size: 24px;
+}
+button{
+    background-color: rgb(88, 141, 255);
+    color: white;
+    
+    border:none;
+    padding: 5px 15px;
+    font-size: 18px;
+}
+
+button:hover{
+    background-color: white;
+    color: rgb(88, 141, 255);}

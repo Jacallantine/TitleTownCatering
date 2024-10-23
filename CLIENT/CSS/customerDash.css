@@ -1,0 +1,48 @@
+body{
+    color: white;
+    background-color: #1f1f1f; 
+    /* mine now google */
+}
+
+.showMore{
+    display: flex;
+    justify-content: center;
+    font-style: italic;
+    font-weight: 400;
+    opacity: 0.5;
+
+}
+
+
+.reservation-container{
+    padding-top: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.customer-reservation{
+    padding-top: 150px;
+}
+
+.reserveName{
+    position: relative;
+    margin-top: 20px;
+}
+
+.reserveName::before{
+    content: "";
+    bottom: -8px;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background-color: white;
+    position: absolute;
+    transition: 0.7s;
+}
+
+.reserveName:hover::before{
+    width: 100%;
+    transition: 0.3s;
+}

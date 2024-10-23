@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Calendar with Weekday-Specific Hours</title>
+    <link rel="stylesheet" href="../CSS/calendar.css">
+</head>
+<body>
+    <div class = 'container'>
+
+<h1>SCHEDULE RESERVATION</h1>
+
+<div class="navigation">
+    <button id="prevMonth" disabled>Previous</button>
+    <span id="monthLabel"></span>
+    <button id="nextMonth">Next</button>
+</div>
+
+<div id="calendar" class="calendar"></div>
+
+<div class="hour-picker" id="hourPicker">
+    <h3>Select Hour</h3>
+    <div id="hours">
+        <!-- Hours will be generated here dynamically -->
+    </div>
+    <button id="submitTime">Save Date & Hour</button>
+</div>
+
+
+<h2>Selected Dates & Hours</h2>
+<ul id="selectedDates"></ul>
+<button type="button">Submit</button>
+</div>
+
+<script src="../JS/calendar.js"></script>
+
+</body>
+</html>

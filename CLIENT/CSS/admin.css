@@ -1,0 +1,38 @@
+body{
+    font-family: sans-serif;
+    
+}
+
+.reservation-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 300px;
+    flex-direction: column;
+    color: white;
+}
+
+.reserveName{
+    margin-top:20px;
+    position: relative;
+}
+.reserveName::before{
+    content: "";
+    bottom: -8px;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background-color: white;
+    position: absolute;
+    transition: 0.7s;
+}
+
+.reserveName:hover::before{
+    width: 100%;
+    transition: 0.3s;
+}
+.showMore{
+    opacity: 0.5;
+    font-style: italic;
+    text-align: center;
+}

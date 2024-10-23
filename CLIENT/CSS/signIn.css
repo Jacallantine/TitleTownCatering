@@ -1,0 +1,104 @@
+body{
+    
+}
+.master-container {
+    display: flex; /* Use flexbox to align child containers side by side */
+    justify-content: space-between; /* Add space between the two containers */
+    width: 100vw;
+}
+
+.signIn-container{ 
+  width: 60%;
+  height: 100vh;
+  background-color: white;
+
+}
+
+.createAccount-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 40%;
+    color: white;
+}
+
+
+
+#signInForm {
+    
+    margin:auto auto;
+    width: 350px;
+    display: grid;
+    grid-template-columns: 1fr; /* One column for both labels and inputs */
+    grid-auto-rows: min-content; /* Rows adjust based on content size */
+    row-gap: 10px; /* Space between each label-input pair */
+    padding: 300px 100px;
+   
+    background-color: white;
+}
+
+label {
+
+    grid-column: span 1;
+    margin-bottom: 5px; /* Add some space between the label and input */
+}
+
+input {
+
+    grid-column: span 1;
+    padding: 8px;
+    border: 1px solid #000000d7;
+    border-radius: 4px;
+    width: 350px;
+}
+
+button {
+    grid-column: span 1; /* Make the button take the full width */
+    padding: 10px;
+    background-color: rgb(88, 141, 255);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+
+
+#customerSignIn{
+    display: flex;
+justify-self: center;
+align-items: center;
+   justify-content: space-evenly;
+    background-color: rgb(255, 255, 255);
+    color:rgb(0, 0, 0);
+    padding: 10px 25px;
+    width: 200px;
+}
+
+#customerSend{
+width: 100%;
+text-align: center;
+border-radius: 0;
+
+}
+
+#createAccount{
+   
+    background-color: rgb(88, 141, 255);
+    color: white;
+    font-size:24px;
+    border:none;
+    letter-spacing: 0;
+    border-radius: 24px;
+    transition: 0.7s;
+    margin-top: 50px;
+}
+
+#createAccount:hover{
+    color :rgb(88, 141, 255);
+    background-color: white;
+    border:none;
+    transition: 0.7s;
+}
