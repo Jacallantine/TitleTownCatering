@@ -5,6 +5,7 @@ function fillMenu(){
     Breakfast()
     Lunch()
     Dinner()
+    Bakery()
 }
 function Breakfast(){
     let html = `
@@ -43,4 +44,16 @@ function Dinner(){
     <span>$65</span></li>
     </ul>`
     document.getElementById("dinner").innerHTML = html;
+}
+
+function Bakery(){
+    let html = `<ul>
+    <li>Blue Berry Muffins 
+    <span>$60</span></li>
+    <li>Apple Pie 
+    <span>$65</span></li>
+    <li>Glazed Donuts 
+    <span>$65</span></li>
+    </ul>`
+    document.getElementById("bakery").innerHTML = html;
 }
