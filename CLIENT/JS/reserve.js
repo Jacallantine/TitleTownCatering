@@ -1,9 +1,8 @@
 document.addEventListener('DOMContentLoaded', ()=>{
-    hideOptionButtons()
-    hideAllSandwiches()
-    hideAllBreakfast()
-    hideAllDrinks()
-    renderCalendar(currentDate)
+   
+   hideAll(menuButton)
+   hideAll(menuItem)
+   
     
 })
 
@@ -176,192 +175,42 @@ document.getElementById('cappuccino').addEventListener('input', totalBeverageCos
 
 
 
+const menuItem = ["breakFast-entree", "breakFast-bakery", "breakFast-fruit", "sandwiches-cold", "sandwiches-hot", "drinks-tea", "drinks-coffee", "drinks-soda" ]
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function hideOptionButtons(){
-    hideBreakfastOptions()
-    hideSandwichOptions()
-    hideSaladOptions()
-    hideDrinkOptions()
+function displayMenuItem(selectedId) {
+    menuItem.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            if (element.id !== selectedId) {
+                element.style.display = "none";
+            } else {
+                element.style.display = "flex";
+            }
+        }
+    });
 }
 
+const menuButton = ["breakfastOptions", "sandwichOptions","saladOptions","drinkOption",]
 
-function hideAllBreakfast(){
-    document.getElementById('breakFast-entree').style.display = 'none'
-    document.getElementById('breakFast-bakery').style.display = 'none'
-    document.getElementById('breakFast-fruit').style.display = 'none'    
+function displayMenuButton(selectedId){
+    menuButton.forEach(id => {
+    const element = document.getElementById(id);
+    if (element) { 
+        if (element.id !== selectedId) {
+            element.style.display = "none";
+        } else {
+            element.style.display = "flex";
+        }
+    }
+})}
+
+
+function hideAll(x){
+    x.forEach(id =>{
+        let element = document.getElementById(id)
+        if(element){
+            element.style.display = "none"
+        }
+    })
 }
-
-
-
-function hideAllSandwiches(){
-    document.getElementById('sandwiches-cold').style.display = 'none'
-    document.getElementById('sandwiches-hot').style.display = 'none'
-}
-
-function hideAllSalads(){
-}
-
-function hideAllDrinks(){
-    document.getElementById('drinks-tea').style.display = 'none'
-    document.getElementById('drinks-soda').style.display = 'none'
-    document.getElementById('drinks-coffee').style.display = 'none'
-}
-
-function showBiscuits(){
-    document.getElementById('breakFast-entree').style.display = 'flex'
-    document.getElementById('breakFast-bakery').style.display = 'none'
-    document.getElementById('breakFast-fruit').style.display = 'none'
-    hideAllSandwiches()
-    hideAllSalads()
-    hideAllDrinks()
-    
-}
-
-function showBakery(){
-    document.getElementById('breakFast-bakery').style.display = 'flex'
-    document.getElementById('breakFast-entree').style.display = 'none'
-    document.getElementById('breakFast-fruit').style.display = 'none'
-    hideAllSandwiches()
-    hideAllSalads()
-    hideAllDrinks()
-}
-
-function showFruit(){
-    document.getElementById('breakFast-fruit').style.display = 'flex'
-    document.getElementById('breakFast-entree').style.display = 'none'
-    document.getElementById('breakFast-bakery').style.display = 'none'
-    hideAllSandwiches()
-    hideAllSalads()
-    hideAllDrinks()
-}
-
-function showColdSandwiches(){
-    document.getElementById('sandwiches-cold').style.display = 'flex'
-    document.getElementById('sandwiches-hot').style.display = 'none'
-    hideAllBreakfast()
-    hideAllSalads()
-    hideAllDrinks()
-
-}
-
-function showHotSandwiches(){
-    document.getElementById('sandwiches-hot').style.display = 'flex'
-    document.getElementById('sandwiches-cold').style.display = 'none'
-    hideAllBreakfast()
-    hideAllSalads()
-    hideAllDrinks()
-
-}
-
-function showTea(){
-    document.getElementById('drinks-tea').style.display = 'flex'
-    document.getElementById('drinks-coffee').style.display = 'none'
-    document.getElementById('drinks-soda').style.display = 'none'
-    hideAllBreakfast()
-    hideAllSalads()
-    hideAllSandwiches()
-    
-}
-
-function showCoffee(){
-    document.getElementById('drinks-coffee').style.display = 'flex'
-    document.getElementById('drinks-tea').style.display = 'none'
-    document.getElementById('drinks-soda').style.display = 'none'
-    hideAllBreakfast()
-    hideAllSalads()
-    hideAllSandwiches()
-}
-
-function showSoda(){
-    document.getElementById('drinks-soda').style.display = 'flex'
-    document.getElementById('drinks-coffee').style.display = 'none'
-    document.getElementById('drinks-tea').style.display = 'none'
-    hideAllBreakfast()
-    hideAllSalads()
-    hideAllSandwiches()
-}
-
-
-
-
-
-
-
-
-
-function showBreakfastOptions(){
-    document.getElementById('breakfastOptions').style.display = 'flex'
-    hideSandwichOptions()
-    hideSaladOptions()
-    hideDrinkOptions()
-}
-
-function showSandwichOptions(){
-    document.getElementById('sandwichOptions').style.display = 'flex'
-    hideBreakfastOptions()
-    hideSaladOptions()
-    hideDrinkOptions()
-}
-
-
-function showSaladOptions(){
-    document.getElementById('saladOptions').style.display = 'flex'
-    hideBreakfastOptions()
-    hideSandwichOptions()
-    hideDrinkOptions()
-}
-
-function showDrinkOptions(){
-    document.getElementById('drinkOption').style.display = 'flex'
-    hideBreakfastOptions()
-    hideSandwichOptions()
-    hideSaladOptions()
-}
-
-function showSaladOptions(){
-    document.getElementById('saladOptions').style.display = 'flex'
-    hideBreakfastOptions()
-    hideSandwichOptions()
-    hideDrinkOptions()
-}
-
-
-
-function hideBreakfastOptions(){
-    document.getElementById('breakfastOptions').style.display = 'none'
-}
-
-
-
-
-function hideDrinkOptions(){
-    document.getElementById('drinkOption').style.display = 'none'
-}
-function hideSandwichOptions(){
-    document.getElementById('sandwichOptions').style.display = 'none'
-}
-
-function hideSaladOptions(){
-    document.getElementById('saladOptions').style.display = 'none'
-}
-
-

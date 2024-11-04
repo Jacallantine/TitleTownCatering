@@ -1,56 +1,55 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Array of block selectors
+   
     const blocks = ['.block1', '.block2', '.block3', '.block4'];
 
-    // Function to add the slide-in class
+  
     const addSlideIn = (element) => {
         element.classList.add('slide-in');
     };
 
-    // Function to remove the slide-in class (for reversing the animation)
+  
     const removeSlideIn = (element) => {
         element.classList.remove('slide-in');
     };
 
-    // Intersection Observer
+  
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 addSlideIn(entry.target);
             } else {
-                removeSlideIn(entry.target); // Reverse animation when out of view
+                removeSlideIn(entry.target); 
             }
         });
     }, {
-        root: null, // Use the viewport as the container
-        threshold: 0.1 // Trigger when 10% of the element is visible
+        root: null, 
+        threshold: 0.1 
     });
 
-    // Query all blocks and observe them
+
     blocks.forEach(selector => {
         const block = document.querySelector(selector);
         if (block) {
-            observer.observe(block); // Observe the block if it exists
+            observer.observe(block); 
         }
     });
 
-    // Check visibility on scroll
     const checkVisibilityOnScroll = () => {
         blocks.forEach(selector => {
             const block = document.querySelector(selector);
             if (block) {
                 const rect = block.getBoundingClientRect();
-                // Check if the element is visible in the viewport
+                
                 if (rect.top < window.innerHeight && rect.bottom > 0) {
                     addSlideIn(block);
                 } else {
-                    removeSlideIn(block); // Reverse the animation if not in view
+                    removeSlideIn(block); 
                 }
             }
         });
     };
 
-    // Check visibility on scroll
+    
     window.addEventListener('scroll', checkVisibilityOnScroll);
 });
 

@@ -41,13 +41,16 @@ html, body {
     font-size:18px;
     transition: 0.5s;
     padding: 10px 15px;
+    height: 60px;
+   
 }
 .navBarOptions button:hover{
     opacity: 0.9;
-    transform: translateY(-2px);
     background-color: aliceblue;
     color:rgb(88, 141, 255);
     transition: 0.5s;
+    height: 60px;
+   
 }
 
 
@@ -101,10 +104,11 @@ html, body {
     width: 100vw;
     height: 80vh;
     background-size: cover;
-    background-position: center;
+    background-position: contain;
+    background-repeat: no-repeat;
     z-index: -1;
     background-color: rgba(0, 0, 0, 0.9);
-    filter: blur(8px);
+    filter: blur(4px);
     animation: changeBackground 20s infinite;
 }
 
@@ -124,8 +128,7 @@ html, body {
 
 
 
-/* Option container with flex layout */
-/* Container layout */
+
 .option-container {
     display: flex;
     width: 100%;
@@ -135,7 +138,7 @@ html, body {
     box-sizing: border-box;
   }
   
-  /* Initial hidden state for .reservation */
+  
   .block1, .block3 {
     display: flex;
     align-items: center;
@@ -147,9 +150,9 @@ html, body {
     font-size: 32px;
     border-bottom-left-radius: 16px;
     border-top-left-radius: 16px;
-    opacity: 0;  /* Hidden initially */
-    transform: translateX(-100%); /* Off-screen left */
-    transition: transform 0.7s ease-out, opacity 4.0s ease-out;
+    opacity: 0; 
+    transform: translateX(-100%); 
+    transition: transform 0.3s ease-out, opacity 1s ease-out;
 }
 
 .block2, .block4 {
@@ -163,17 +166,17 @@ html, body {
     background-color: rgb(88, 141, 255);
     border-bottom-right-radius: 16px;
     border-top-right-radius: 16px;
-    opacity: 0; /* Hidden initially */
-    transform: translateX(100%); /* Off-screen right */
-    transition: transform 0.7s ease-out, opacity 4.0s ease-out;
+    opacity: 0; 
+    transform: translateX(100%); 
+    transition: transform 0.3s ease-out, opacity 1s ease-out;
 }
 
-/* When the element scrolls into view, it slides in */
+
 .block1.slide-in,
 .block2.slide-in, .block3.slide-in,
 .block4.slide-in {
     opacity: 1;
-    transform: translateX(0); /* Slide into place */
+    transform: translateX(0); 
 }
 
 
@@ -204,26 +207,60 @@ html, body {
 #description{
     height: 4rem;
 }
-.send{
+
+
+
+
+
+
+
+
+.send {
+    overflow: hidden;
+    position: relative;
     background-color: black;
     color: white;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top:10px;
-    padding-bottom: 10px;;
+    padding: 10px 20px; 
     font-weight: 600;
     font-size: 15px;
     margin-top: 1rem;
-    border:3px solid black;
+    border: 3px solid black;
+    cursor: pointer; 
 }
 
-.send:hover{
+.send span {
+    position: relative; 
+    z-index: 3;
+}
+
+.send:hover span {
+    color: black; 
+}
+
+.send::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%; 
+    width: 100%;
+    height: 100%;
     background-color: white;
-    color: black;
-    opacity: 0.8;
-    transition: 0.5s;
-    letter-spacing: 0.10em;
-    border:3px solid black;
+    z-index: 2;
+    transition: transform 0.4s ease; 
+}
+
+.send:hover::before {
+    transform: translateX(100%); 
 }
 
 
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: rgb(88, 141, 255);
+    color: white;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}

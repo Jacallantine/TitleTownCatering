@@ -1,16 +1,16 @@
 document.getElementById('signInForm').addEventListener('submit', function (e) {
-    e.preventDefault();  // Prevent form from submitting normally
+    e.preventDefault();  
 
     const email_address = document.getElementById('userName').value;
     const password = document.getElementById('password').value;
 
-    // Send a POST request to the backend with email and password
+   
     fetch(`http://localhost:5220/api/customer/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email_address, password })  // Properly stringify email and password into a JSON object
+        body: JSON.stringify({ email_address, password })  
     })
     .then(async (response) => {
         const data = await response.json();  

@@ -102,25 +102,13 @@
             <div class='boxedBreakfast-wrapper'>
                 <img src="PHOTO/MENU/ENC.png" alt="Cinnamon Rolls">
                 <div class='menuItem-container-row'>
-                    <label for="cinnamonRolls">EGG N CHEESE</label>
+                    <label for="cinnamonRolls">Cinnamon Rolls</label>
                     <input type="number" id="cinnamonRolls">
                 </div>
             </div>
         </div>
     
         <!-- BREAKFAST BURRITO'S H1 -->
-        <h1 class='menuItem-categories'>BREAKFAST BURRITO'S</h1>
-    
-        <!-- SAUSAGE EGG N CHEESE BURRITO -->
-        <div class='menuItem-Background'>
-            <div class='boxedBreakfast-wrapper'>
-                <img src="PHOTO/MENU/SENGBF.jpg" alt="Sausage Egg N Cheese Burrito">
-                <div class='menuItem-container-row'>
-                    <label for="SENB">SAUSAGE EGG N CHEESE</label>
-                    <input type="number" id="SENB">
-                </div>
-            </div>
-        </div>
     </div>
     
 <!-- Fruits -->
@@ -339,24 +327,24 @@
         <h1 id = 'cateringOptions'>Catering Menu</h1>
         <div class = 'cateringOptions-button-container'>
 
-        <button onclick= "showBreakfastOptions()" class = 'buttonDeco'id = 'Breakfast'>Breakfast</button>
+        <button onclick= "displayMenuButton('breakfastOptions')" class = 'buttonDeco'id = 'Breakfast'>Breakfast</button>
         <div class="breakfastOptions" id = 'breakfastOptions'>
             <div class = 'buttonOffset'>
-            <button onclick="showBiscuits()" id = 'entree'>Entree</button>
-            <button onclick="showBakery()" id = 'bakery'>Bakery</button>
-            <button onclick="showFruit()" id = 'fruit'>Fruits</button>
+            <button onclick="displayMenuItem('breakFast-entree')" id = 'entree'>Entree</button>
+            <button onclick="displayMenuItem('breakFast-bakery')" id = 'bakery'>Bakery</button>
+            <button onclick="displayMenuItem('breakFast-fruit')" id = 'fruit'>Fruits</button>
             </div>
         </div>
 
-        <button onclick="showSandwichOptions()" class = 'buttonDeco'id = 'Sandwiches'>Lunch</button>
+        <button onclick="displayMenuButton('sandwichOptions')" class = 'buttonDeco'id = 'Sandwiches'>Lunch</button>
         <div class = 'sandwichOptions' id = 'sandwichOptions'>
             <div class="buttonOffset">
-            <button onclick="showColdSandwiches()" id = 'coldSandwhich'>Cold Sandwhiches</button>
-            <button onclick="showHotSandwiches()" id = 'hotSandwhich'>Hot Sandwhiches</button>
+            <button onclick="displayMenuItem('sandwiches-cold')" id = 'coldSandwhich'>Cold Sandwhiches</button>
+            <button onclick="displayMenuItem('sandwiches-hot')" id = 'hotSandwhich'>Hot Sandwhiches</button>
             <button onclick="button" id = 'assortment'>Assorted Sandwhiches</button>
             </div>
         </div>
-        <button onclick="showSaladOptions()" class = 'buttonDeco'id = 'salads'>Salads</button>
+        <button onclick="displayMenuButton('saladOptions')" class = 'buttonDeco'id = 'salads'>Salads</button>
             <div class = 'saladOptions' id = 'saladOptions'>
                 <div class="buttonOffset">
             <button onclick="displayRanchSalad()" id = 'ranchSalad'>Ranch Salad</button>
@@ -366,7 +354,7 @@
             </div>
 
         </div>
-        <button onclick="showDrinkOptions()"class = 'buttonDeco' id = 'drinks'>Drinks</button>
+        <button onclick="displayMenuButton('drinkOption')"class = 'buttonDeco' id = 'drinks'>Drinks</button>
             <div class = 'drinkOptions' id = 'drinkOption'>
             <div class="buttonOffset">
             <button onclick="showTea()" id = 'tea'>Tea</button>
@@ -414,7 +402,7 @@
             </div>
 
             <div class='cost-container-row' id = 'totalCost-container'>
-                <button onclick = "createReservation()" id = 'payButton'>PAY</button>
+                <button onclick = "window.location.href = 'payment.html'" id = 'payButton'>PAY</button>
             </div>
 
 
@@ -429,7 +417,10 @@
 
 
     
-
+    <footer>
+        <p>&copy; 2024 TitleTownCatering | Delicious meals for all occasions!</p>
+    </footer>
+    
 
     
     <script src="../JS/reserve.js"></script>
