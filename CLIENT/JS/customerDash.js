@@ -44,7 +44,7 @@ async function displayReservations(reservations){
     reservations.forEach((reservation) => {
         const reserv = document.createElement('div')
         reserv.style.cursor = 'pointer'
-        reserv.textContent = `${reservation.id}  ${reservation.email_address}  ${reservation.price}`
+        reserv.textContent = `${reservation.reservation_id}  ${reservation.email_address}  ${reservation.date}`
         reserv.classList.add('reserveName')
                 container.appendChild(reserv)
     

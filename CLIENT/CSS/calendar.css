@@ -1,27 +1,154 @@
 
-body{
-    width: 100vw;
-    height: 100vh;
-}
-
-button{
-    background-color: rgb(108, 108, 247);
-    color: white;
-    border: none;
-    padding:5px 15px;
-    border-radius: 6px;
-    font-size: 26px;
-    transition: 0.7s;
-}
-button:hover{
-    background-color: white;
-    color:  rgb(108, 108, 247);
-    transform: translateY(-4px);
-    transition: 0.7s;
-}
-.buttonDiv{
-    padding-top: 400px;
+body {
+    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #1f1f1f
+}
+
+Button{
+    overflow: hidden;
+    position: relative;
+    background-color: black;
+    color: white;
+    padding: 10px 20px; 
+    font-weight: 600;
+    font-size: 20px;
+    margin-top: 1rem;
+    border-radius: 4px;
+    border: 3px solid black;
+    cursor: pointer; 
+}
+
+Button:hover{
+    background-color: rgba(57, 118, 250, 0);
+    
+    border: 3px solid #1f1f1f ;
+    transition: 0.7s;
+}
+
+Button span {
+    position: relative; 
+    z-index: 3;
+}
+
+Button:hover span {
+    color: black; 
+}
+Button::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: 2;
+    transition: transform 0.4s ease; 
+}
+Button:hover::before {
+    transform: translateY(-100%); 
+}
+
+
+
+
+
+.calendar {
+    width: 600px; /* Adjusted to accommodate block layout */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: rgb(88, 141, 255); 
+    color: white;
+}
+
+.calendar-header button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.calendar-days,
+.calendar-body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 equal columns for each day of the week */
+    gap: 5px;
+    padding: 10px;
+}
+
+.day, .date {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px; /* Set a fixed height to make blocks square */
+    border-radius: 5px;
+}
+
+.date {
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: background 0.3s;
+    border: 1px solid transparent;
+}
+
+.date:hover {
+    background-color: #ddd;
+    border: 1px solid rgb(88, 141, 255) ;
+}
+
+.date.today {
+    border: 4px solid rgb(88, 141, 255);
+}
+
+.date.past {
+    color: #aaa;
+    cursor: default;
+    pointer-events: none;
+}
+
+.time-selection {
+    display: none;
+    padding: 10px;
+}
+
+.time-slot {
+    cursor: pointer;
+    padding: 5px;
+    margin: 3px;
+    border: 1px solid rgb(88, 141, 255);
+    border-radius: 4px;
+    text-align: center;
+}
+
+.time-slot:hover{
+    background-color:rgb(88, 141, 255, 0.75) ;
+}
+
+.time-slot.selected {
+    background-color: rgb(88, 141, 255);
+    color: white;
+}
+
+.date.selected-date {
+    background-color: rgb(88, 141, 255); /* Selected background color */
+    color: white;
+}
+
+#save-button{
+    margin:15px auto;
 }
