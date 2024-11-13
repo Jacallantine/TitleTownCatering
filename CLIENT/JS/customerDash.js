@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', ()=>{
     var first_name = getQueryParam("first_name");
     var email_address = getQueryParam("email_address");
-    
+
     console.log(email_address);
     console.log(first_name);
 
@@ -14,9 +14,19 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 })
 
+
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+function GoToCalendar(email_address){
+    var email_address = getQueryParam("email_address");
+    window.location.href = `calendar.html?email_address=${email_address}`;
+}
+
 async function fetchReservations(email_address){
     console.log(`Fetching reservations for: ${email_address}`); 
-    fetch(`http://localhost:5220/api/reservation/${email_address}`, {
+    fetch(`http://localhost:5220/api/reservation/email/${email_address}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -64,10 +74,6 @@ async function displayReservations(reservations){
         container.appendChild(showMore)
     }
 
-function getQueryParam(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-}
 
 
 

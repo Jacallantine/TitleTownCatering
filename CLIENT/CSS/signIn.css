@@ -1,15 +1,16 @@
 body{
+    width: 100vw;
+    height: 100vh;
     
 }
 .master-container {
     display: flex; 
     justify-content: space-between;
-    width: 100vw;
+    
 }
 
 .signIn-container{ 
   width: 60%;
-  height: 100vh;
   background-color: white;
 
 }
@@ -72,8 +73,8 @@ button {
 
 #customerSignIn{
     display: flex;
-justify-self: center;
-align-items: center;
+    justify-self: center;
+    align-items: center;
    justify-content: space-evenly;
     background-color: rgb(255, 255, 255);
     color:rgb(0, 0, 0);

@@ -2,9 +2,25 @@ document.addEventListener('DOMContentLoaded', ()=>{
    
    hideAll(menuButton)
    hideAll(menuItem)
+   reservation_id = GUID()
+
+   var DateTime = getQueryParam("DateTime")
+   var email_address = getQueryParam("email_address")
+   console.log(DateTime)
+   console.log(reservation_id)
+   console.log(email_address)
    
     
 })
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+function GUID() {
+    return Math.floor(1000 + Math.random() * 9000).toString();
+}
+
+
 
 
 
@@ -12,7 +28,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 
 function makePayment(){
-
+    var DateTime = getQueryParam("DateTime")
+   var email_address = getQueryParam("email_address")
+   reservation_id = GUID()
+    window.location.href = `payment.html?email_address=${email_address}&DateTime=${DateTime}&reservation_id=${reservation_id};`
 }
 
 

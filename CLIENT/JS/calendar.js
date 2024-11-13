@@ -1,3 +1,14 @@
+document.addEventListener("DOMContentLoaded", ()=>{
+var email_address = getQueryParam("email_address");
+console.log(email_address)
+
+})
+
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
 const calendarBody = document.getElementById("calendar-body");
 const monthYearDisplay = document.getElementById("month-year");
 const timeSelection = document.getElementById("time-selection");
@@ -12,7 +23,7 @@ let selectedDateElement = null;
 let selectedDateTime = null;
 
 function updateCalendar() {
-    calendarBody.innerHTML = ''; // Clear calendar body
+    calendarBody.innerHTML = ''; 
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
     
@@ -22,27 +33,25 @@ function updateCalendar() {
 
     monthYearDisplay.textContent = firstDay.toLocaleDateString('default', { month: 'long', year: 'numeric' });
 
-    // Fill in the empty days at the start of the month
     for (let i = 0; i < firstDay.getDay(); i++) {
         const emptyCell = document.createElement('div');
         calendarBody.appendChild(emptyCell);
     }
 
-    // Fill in the days of the month
     for (let day = 1; day <= lastDay.getDate(); day++) {
         const date = new Date(year, month, day);
         const dateElement = document.createElement('div');
         dateElement.className = 'date';
         dateElement.textContent = day;
 
-        // Mark past dates
+        
         if (date < today.setHours(0, 0, 0, 0)) {
             dateElement.classList.add('past');
         } else {
             dateElement.onclick = () => selectDate(date, dateElement);
         }
 
-        // Highlight today
+       
         if (date.toDateString() === new Date().toDateString()) {
             dateElement.classList.add('today');
         }
@@ -52,27 +61,27 @@ function updateCalendar() {
 }
 
 function selectDate(date, dateElement) {
-    // Remove background from previously selected date
+    
     if (selectedDateElement) {
         selectedDateElement.classList.remove('selected-date');
     }
 
-    // Set the new selected date
+    
     selectedDate = date;
     selectedDateElement = dateElement;
     selectedDateElement.classList.add('selected-date');
 
-    // Display hours for the selected date
+    
     showAvailableHours(date);
 }
 
 function showAvailableHours(date) {
-    selectedDateTime = date; // Set the selected date
+    selectedDateTime = date;
     timeSelection.style.display = 'block';
-    hoursList.innerHTML = ''; // Clear previous hours
-    saveButton.style.display = 'none'; // Hide save button initially
+    hoursList.innerHTML = ''; 
+    saveButton.style.display = 'none';
 
-    // Generate available hours for the selected day (8 AM to 6 PM)
+  
     for (let hour = 8; hour <= 18; hour++) {
         const timeSlot = document.createElement('div');
         timeSlot.className = 'time-slot';
@@ -85,22 +94,23 @@ function showAvailableHours(date) {
 }
 
 function selectHour(hour) {
-    // Save the selected hour in selectedDateTime
+   
     selectedDateTime.setHours(hour, 0, 0, 0);
 
-    // Display selected hour
+  
     const allSlots = document.querySelectorAll('.time-slot');
     allSlots.forEach(slot => slot.classList.remove('selected'));
     
     event.target.classList.add('selected');
     
-    // Show the save button when an hour is selected
+    
     saveButton.style.display = 'block';
 }
 
-function saveReservation() {
+function saveReservation(email_address) {
     console.log('Reservation saved:', selectedDateTime);
-    // Hide the save button after saving
+    var email_address = getQueryParam("email_address");
+    window.location.href = `reservation.html?DateTime=${selectedDateTime}&email_address=${email_address}`;
     saveButton.style.display = 'none';
 }
 
@@ -114,7 +124,7 @@ nextMonthBtn.onclick = () => {
     updateCalendar();
 };
 
-// Initial calendar render
+
 updateCalendar();
 
 saveButton.addEventListener("click", ()=>{
