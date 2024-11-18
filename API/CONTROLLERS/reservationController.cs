@@ -22,19 +22,40 @@ namespace API.CONTROLLERS
                return await myDatabase.GetAllReservations();
           }
 
-          [HttpGet("email/{email_address}")]
-          public async Task<List<reservation>> GetReservationByEmail(string email_address)
-          {
-               Database myDatabase = new();
-               return await myDatabase.GetCustomerReservations(email_address);
-          }
 
-          // [HttpGet("id/{reservation_id}")]
-          // public async Task<List<reservation>> GetReservationById(int reservation_id)
-          // {
-          //      Database myDatabase = new();
-          //      return await myDatabase.GetReservation(reservation_id);
-          // }
+[HttpPost]
+public async Task<IActionResult> Post([FromBody] reservationRequest request)
+{
+
+    Database myDatabase = new();
+
+  
+    if (request.Reservation == null || request.FoodInstances == null)
+    {
+        return BadRequest("Invalid reservation or food instances data.");
+    }
+    bool isCreated = await myDatabase.CreateReservation(request.Reservation, request.FoodInstances);
+
+    if (isCreated)
+    {
+        return Ok("Reservation and food instances created successfully.");
+    }
+    else
+    {
+        return BadRequest("Failed to create reservation or food instances. Check server logs for details.");
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

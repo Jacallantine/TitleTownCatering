@@ -1,24 +1,61 @@
 document.addEventListener('DOMContentLoaded', ()=>{
-   
-   hideAll(menuButton)
-   hideAll(menuItem)
-   reservation_id = GUID()
 
+   hideAll(menuItem)
    var DateTime = getQueryParam("DateTime")
    var email_address = getQueryParam("email_address")
    console.log(DateTime)
-   console.log(reservation_id)
    console.log(email_address)
+   console.log(reservation_id)
    
     
 })
-function getQueryParam(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-}
-function GUID() {
-    return Math.floor(1000 + Math.random() * 9000).toString();
-}
+
+
+const menuItem = ["breakFast-entree", "lunch-entree", "dinner-entree", "drink-option", "side-option" ]
+
+const email_address = getQueryParam("email_address")
+const DateTime = getQueryParam("DateTime")
+const reservation_id = GUID()
+
+const Biscuit = document.getElementById("biscuit")
+const SENC = document.getElementById("SENC")
+const SB = document.getElementById("SB")
+const ENC = document.getElementById("ENC")
+
+const CS = document.getElementById("chickenSandwich")
+const HD = document.getElementById("hotDog")
+const CB = document.getElementById("cheeseBurger")
+const PB = document.getElementById("poBoy")
+
+const S = document.getElementById("steak")
+const FC = document.getElementById("friedCatfish")
+const B = document.getElementById("boil")
+
+Biscuit.addEventListener('input', TotalEntreeCost)
+SENC.addEventListener('input', TotalEntreeCost)
+ENC.addEventListener('input', TotalEntreeCost)
+SB.addEventListener('input', TotalEntreeCost)
+
+CS.addEventListener('input', TotalEntreeCost)
+PB.addEventListener('input', TotalEntreeCost)
+CB.addEventListener('input', TotalEntreeCost)
+PB.addEventListener ('input', TotalEntreeCost)
+HD.addEventListener('input', TotalEntreeCost)
+
+S.addEventListener('input', TotalEntreeCost)
+FC.addEventListener('input', TotalEntreeCost)
+B.addEventListener('input', TotalEntreeCost)
+
+
+
+
+const ReservationData = {
+
+    reservation_id: reservation_id,
+    email_address: email_address,
+    date: DateTime,
+    address: "123 Example Street"
+};
 
 
 
@@ -26,178 +63,110 @@ function GUID() {
 
 
 
-
-function makePayment(){
-    var DateTime = getQueryParam("DateTime")
-   var email_address = getQueryParam("email_address")
-   reservation_id = GUID()
-    window.location.href = `payment.html?email_address=${email_address}&DateTime=${DateTime}&reservation_id=${reservation_id};`
-}
-
-
-
-
-
-async function createReservation(){
-    let email_address = 'jaredcallantine1@gmail.com';
-    let price = document.getElementById('total').value;
-    let date = 'aug 8';
-    let time = '6 am';
-   
-
-    const response = await fetch('http://localhost:5065/api/reservation/createReservation', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            email_address: email_address,
-            price : price,
-            date : date,
-            time : time
-            
-        })
-    });
-
+function RetrieveInstances(){
+    const AllFoodInstances = [
+        // Breakfast
+        { reservation_id: reservation_id, food_id: 1234, quantity: parseInt(Biscuit.value) },
+        { reservation_id: reservation_id, food_id: 1235, quantity: parseInt(SENC.value) },
+        { reservation_id: reservation_id, food_id: 1236, quantity: parseInt(SB.value) },
+        { reservation_id: reservation_id, food_id: 1237, quantity: parseInt(ENC.value) },
+        // Lunch
+        { reservation_id: reservation_id, food_id: 1238, quantity: parseInt(CS.value) },
+        { reservation_id: reservation_id, food_id: 1239, quantity: parseInt(HD.value) },
+        { reservation_id: reservation_id, food_id: 1240, quantity: parseInt(CB.value) },
+        { reservation_id: reservation_id, food_id: 1241, quantity: parseInt(PB.value) },
+        // Dinner
+        { reservation_id: reservation_id, food_id: 1242, quantity: parseInt(S.value) },
+        { reservation_id: reservation_id, food_id: 1243, quantity: parseInt(FC.value) },
+        { reservation_id: reservation_id, food_id: 1244, quantity: parseInt(B.value) }
+    ];
     
-    if (response.ok) {
-        const jsonResponse = await response.json();
-        alert(jsonResponse.message); 
-    } else {
-        const errorResponse = await response.json();
-        console.error('Error details:', errorResponse);
-        alert('Error creating user: ' + errorResponse.message);
-    }
-
-
+    let reservationRequest = {
+        Reservation: ReservationData,
+        FoodInstances: AllFoodInstances.filter(item => item.quantity > 0)
+    };
+    console.log(reservationRequest)
+    return reservationRequest
 }
 
 
 
-const priceBENC = 5.00 
-const priceSENC = 4.50 
-const priceENC = 3.75  
 
-const priceHNC = 3.75
-const priceTNC = 3.75
-const priceBNC = 3.75
+function makePayment() {
 
-const priceGC = 3
-const pricePCS = 4.5
-const priceCS = 4
 
-const priceApple = 1
-const priceBanana = 1
-const priceOrange = 1
+    let reservationRequest = RetrieveInstances();  
+  
+    let combinedData = {
+        Reservation: reservationRequest.Reservation,
+        FoodInstances: reservationRequest.FoodInstances
+    };
 
-const priceSweetTea = 4.25
-const priceCoffee = 4.25
-const PriceUnsweetTea = 3.25
-const priceGreenTea = 2
-const priceSoda = 6
+    let combinedDataStr = encodeURIComponent(JSON.stringify(combinedData));
 
-function totalBeverageCost(){
-
-    let sweetTeaQuantity = parseFloat(document.getElementById('sweetTea').value) || 0
-    let unsweetTeaQuantity = parseFloat(document.getElementById('unsweetTea').value) || 0
-    let blackCoffeeQuantity = parseFloat(document.getElementById('blackCoffee').value) || 0
-    let cappuccinoQuantity = parseFloat(document.getElementById('cappuccino').value) || 0
-    let latteQuantity = parseFloat(document.getElementById('latte').value) || 0
-    let greenTeaQuantity = parseFloat(document.getElementById('greenTea').value) || 0
-    let mDewQuantity = parseFloat(document.getElementById('mDew').value) || 0
-    let cokeQuantity = parseFloat(document.getElementById('coke').value) || 0
-    let drPepperQuantity = parseFloat(document.getElementById('drPepper').value) || 0
-
-    let drinkCost = (mDewQuantity * priceSoda) + (drPepperQuantity * priceSoda) + 
-    (cokeQuantity * priceSoda) + (greenTeaQuantity * priceGreenTea) + (sweetTeaQuantity * priceSweetTea) + 
-    (blackCoffeeQuantity * priceCoffee) + (unsweetTeaQuantity *PriceUnsweetTea) + 
-    (cappuccinoQuantity * priceCoffee) + (latteQuantity *priceCoffee)
-
-    document.getElementById('beverages').value = drinkCost.toFixed(2)
-    totalCost()
-
+    window.location.href = `payment.html?combinedData=${combinedDataStr}`;
 }
 
-function totalDesertCost(){
 
-}
-function totalSideCost(){
 
-    let appleQuantity = parseFloat(document.getElementById('apple').value) || 0; 
-    let bananaQuantity = parseFloat(document.getElementById('orange').value) || 0; 
-    let orangeQuantity =parseFloat(document.getElementById('banana').value) || 0; 
-    const sideCost = (appleQuantity * priceApple) + (bananaQuantity * priceBanana) + (orangeQuantity * priceOrange)
 
-    document.getElementById('sides').value = sideCost.toFixed(2)
-    totalCost()
-}
 
-function totalEntreeCost() {
-    
-    let bencQuantity = parseFloat(document.getElementById('BENC').value) || 0; 
-    let sencQuantity = parseFloat(document.getElementById('SENC').value) || 0;
-    let encQuantity = parseFloat(document.getElementById('ENC').value) || 0;
-    let hncQuantity = parseFloat(document.getElementById('HNC').value) || 0;
-    let tncQuantity = parseFloat(document.getElementById('TNC').value) || 0;
-    let bncQuantity = parseFloat(document.getElementById('BNC').value) || 0;
-    let gcQuantity = parseFloat(document.getElementById('GC').value) || 0;
-    let pcsQuantity = parseFloat(document.getElementById('PCS').value) || 0;
-    let csQuantity = parseFloat(document.getElementById('CS').value) || 0;
 
-    
-    const entreeCost = (bencQuantity * priceBENC) + (sencQuantity * priceSENC) + (encQuantity * priceENC) + (hncQuantity * priceHNC) + (tncQuantity * priceTNC) + (bncQuantity * priceBNC)
+// function totalBeverageCost(){
+
+//     let sweetTeaQuantity = parseFloat(document.getElementById('sweetTea').value) || 0
+//     let unsweetTeaQuantity = parseFloat(document.getElementById('unsweetTea').value) || 0
+//     let blackCoffeeQuantity = parseFloat(document.getElementById('blackCoffee').value) || 0
+//     let cappuccinoQuantity = parseFloat(document.getElementById('cappuccino').value) || 0
+//     let latteQuantity = parseFloat(document.getElementById('latte').value) || 0
+//     let greenTeaQuantity = parseFloat(document.getElementById('greenTea').value) || 0
+//     let mDewQuantity = parseFloat(document.getElementById('mDew').value) || 0
+//     let cokeQuantity = parseFloat(document.getElementById('coke').value) || 0
+//     let drPepperQuantity = parseFloat(document.getElementById('drPepper').value) || 0
+
+//     let drinkCost = (mDewQuantity * priceSoda) + (drPepperQuantity * priceSoda) + 
+//     (cokeQuantity * priceSoda) + (greenTeaQuantity * priceGreenTea) + (sweetTeaQuantity * priceSweetTea) + 
+//     (blackCoffeeQuantity * priceCoffee) + (unsweetTeaQuantity *PriceUnsweetTea) + 
+//     (cappuccinoQuantity * priceCoffee) + (latteQuantity *priceCoffee)
+
+//     document.getElementById('beverages').value = drinkCost.toFixed(2)
+//     totalCost()
+
+// }
+
+// function totalSideCost(){
+
+//     let appleQuantity = parseFloat(document.getElementById('apple').value) || 0; 
+//     let bananaQuantity = parseFloat(document.getElementById('orange').value) || 0; 
+//     let orangeQuantity =parseFloat(document.getElementById('banana').value) || 0; 
+//     const sideCost = (appleQuantity * priceApple) + (bananaQuantity * priceBanana) + (orangeQuantity * priceOrange)
+
+//     document.getElementById('sides').value = sideCost.toFixed(2)
+//     totalCost()
+// }
+
+function TotalEntreeCost() {
+
+    let entreeCost = (bencQuantity * priceBENC) + (sencQuantity * priceSENC) + (encQuantity * priceENC) + (hncQuantity * priceHNC) + (tncQuantity * priceTNC) + (bncQuantity * priceBNC)
     + (gcQuantity * priceGC) + (pcsQuantity * pricePCS) * (csQuantity * priceCS)
     
     document.getElementById('entrees').value = entreeCost.toFixed(2) 
-    totalCost()
+    TotalCost()
 }
 
 
-function totalCost() {
-    let totalEntree = parseFloat(document.getElementById('entrees').value) || 0;
-    let totalSide = parseFloat(document.getElementById('sides').value) || 0;
-    let totalDeserts = parseFloat(document.getElementById('deserts').value) || 0;
-    let totalBeverages = parseFloat(document.getElementById('beverages').value) || 0;
+// function TotalCost() {
+//     let totalEntree = parseFloat(document.getElementById('entrees').value) || 0;
+//     let totalSide = parseFloat(document.getElementById('sides').value) || 0;
+//     let totalBeverages = parseFloat(document.getElementById('beverages').value) || 0;
  
-    let totalCost = totalEntree + totalSide + totalDeserts + totalBeverages;
-    document.getElementById('total').value = totalCost.toFixed(2);
- }
-
-
-document.getElementById('BENC').addEventListener('input', totalEntreeCost)
-document.getElementById('SENC').addEventListener('input', totalEntreeCost)
-document.getElementById('ENC').addEventListener('input', totalEntreeCost)
-document.getElementById('HNC').addEventListener('input', totalEntreeCost)
-document.getElementById('TNC').addEventListener('input', totalEntreeCost)
-document.getElementById('BNC').addEventListener('input', totalEntreeCost)
-document.getElementById('GC').addEventListener('input', totalEntreeCost)
-document.getElementById('PCS').addEventListener('input', totalEntreeCost)
-document.getElementById('CS').addEventListener('input', totalEntreeCost)
+//     let totalCost = totalEntree + totalSide + totalDeserts + totalBeverages;
+//     document.getElementById('total').value = totalCost.toFixed(2);
+//  }
 
 
 
-document.getElementById('apple').addEventListener('input', totalSideCost)
-document.getElementById('orange').addEventListener('input', totalSideCost)
-document.getElementById('banana').addEventListener('input', totalSideCost)
-
-document.getElementById('sweetTea').addEventListener('input', totalBeverageCost)
-document.getElementById('greenTea').addEventListener('input', totalBeverageCost)
-document.getElementById('coffee').addEventListener('input', totalBeverageCost)
-document.getElementById('unsweetTea').addEventListener('input', totalBeverageCost)
-document.getElementById('blackCoffee').addEventListener('input', totalBeverageCost)
-document.getElementById('latte').addEventListener('input', totalBeverageCost)
-document.getElementById('cappuccino').addEventListener('input', totalBeverageCost)
-
-
-
-
-
-
-
-const menuItem = ["breakFast-entree", "breakFast-bakery", "breakFast-fruit", "sandwiches-cold", "sandwiches-hot", "drinks-tea", "drinks-coffee", "drinks-soda" ]
-
-
-function displayMenuItem(selectedId) {
+async function displayMenuItem(selectedId) {
     menuItem.forEach(id => {
         const element = document.getElementById(id);
         if (element) {
@@ -210,26 +179,21 @@ function displayMenuItem(selectedId) {
     });
 }
 
-const menuButton = ["breakfastOptions", "sandwichOptions","saladOptions","drinkOption",]
-
-function displayMenuButton(selectedId){
-    menuButton.forEach(id => {
-    const element = document.getElementById(id);
-    if (element) { 
-        if (element.id !== selectedId) {
-            element.style.display = "none";
-        } else {
-            element.style.display = "flex";
-        }
-    }
-})}
 
 
-function hideAll(x){
+async function hideAll(x){
     x.forEach(id =>{
         let element = document.getElementById(id)
         if(element){
             element.style.display = "none"
         }
     })
+}
+
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+function GUID() {
+    return Math.floor(1000 + Math.random() * 9000).toString();
 }

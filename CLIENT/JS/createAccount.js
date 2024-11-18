@@ -20,16 +20,9 @@ async function createUser(){
             email_address: email_address
 
         })
-    });
+});
 
     
-    if (response.ok) {
-        const response = await response.json();
-        alert(response.message); 
-    } else {
-        const errorResponse = await response.json();
-        console.error('Error details:', errorResponse);
-        alert('Error creating user: ' + errorResponse.message);
-    }
+   
 
 }

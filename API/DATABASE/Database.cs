@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 
 using API.MODELS;
 namespace API.DATABASE
@@ -16,75 +17,61 @@ namespace API.DATABASE
         {
             cs = "server=d13xat1hwxt21t45.cbetxkdyhwsb.us-east-1.rds.amazonaws.com;database=wyy58hdk8euoriv4;user=ujsfwodssb8dddhf;password=aza6uqhshq753iyv;port=3306;";
         }
-        // private async Task<List<reservation>> GetReservation(string sql, List<MySqlParameter> parms)
-        // {
-        //     // Dictionary to hold reservation details by reservation_id
-        //     Dictionary<int, reservation> reservationDict = new();
-
-        //     using var connection = new MySqlConnection(cs);
-        //     await connection.OpenAsync();
-        //     using var command = new MySqlCommand(sql, connection);
-
-        //     if (parms != null)
-        //     {
-        //         command.Parameters.AddRange(parms.ToArray());
-        //     }
-
-        //     using var reader = await command.ExecuteReaderAsync();
-        //     while (await reader.ReadAsync())
-        //     {
-        //         int reservationId = reader.GetInt32(0);
-
-        //         // Check if the reservation_id already exists in the dictionary
-        //         if (!reservationDict.TryGetValue(reservationId, out var currentReservation))
-        //         {
-        //             // If not, create a new reservation and add it to the dictionary
-        //             currentReservation = new reservation
-        //             {
-        //                 reservation_id = reservationId,
-        //                 email_address = reader.GetString(1),
-        //                 food_name = new List<string>(),
-        //                 itemprice = new List<int>()
-        //             };
-        //             reservationDict[reservationId] = currentReservation;
-        //         }
-
-        //         // Add food_name and itemprice to the respective lists
-        //         currentReservation.food_name.Add(reader.GetString(2));
-        //         currentReservation.itemprice.Add(reader.GetInt32(3));
-        //     }
-
-        //     // Return the dictionary values as a list
-        //     return reservationDict.Values.ToList();
-        // }
+       
 
 
- private async Task<List<reservation>> GetAllCustomerReservation(string sql, List<MySqlParameter> parms)
+  private async Task<List<reservation>> GetAllCustomerReservation(string sql, List<MySqlParameter> parms)
+{
+    List<reservation> reservations = new();
+    var reservationMap = new Dictionary<int, reservation>(); 
+
+    using var connection = new MySqlConnection(cs);
+    await connection.OpenAsync();
+    using var command = new MySqlCommand(sql, connection);
+
+    if (parms.Any())
+    {
+        command.Parameters.AddRange(parms.ToArray());
+    }
+
+    using var reader = await command.ExecuteReaderAsync();
+    while (await reader.ReadAsync())
+    {
+        int reservationId = reader.GetInt32(reader.GetOrdinal("reservation_id"));
+
+      
+        if (!reservationMap.ContainsKey(reservationId))
         {
-            List<reservation> currentReservation = new();
-            using var connection = new MySqlConnection(cs);
-            await connection.OpenAsync();
-            using var command = new MySqlCommand(sql, connection);
-
-            if (parms != null)
+            var reservation = new reservation
             {
-                command.Parameters.AddRange(parms.ToArray());
-            }
+                reservation_id = reservationId,
+                email_address = reader.GetString(reader.GetOrdinal("email_address")),
+                date = reader.GetString(reader.GetOrdinal("date")),
+                address = reader.GetString(reader.GetOrdinal("address")),
+                FoodInstances = new List<FoodInstance>()
+            };
 
-            using var reader = command.ExecuteReader();
-            while (await reader.ReadAsync())
-            {
-                currentReservation.Add(new reservation()
-                {
-                    reservation_id = reader.GetInt32(0),
-                    email_address = reader.GetString(1),
-                    date = reader.GetString(2)
-
-                });
-            }
-            return currentReservation;
-
+            
+            reservationMap.Add(reservationId, reservation);
+            reservations.Add(reservation); 
         }
+
+        
+        var foodInstance = new FoodInstance
+        {
+            food_id = reader.GetInt32(reader.GetOrdinal("food_id")),
+            reservation_id = reservationId,
+            quantity = reader.GetInt32(reader.GetOrdinal("quantity"))
+        };
+
+       
+        reservationMap[reservationId].FoodInstances.Add(foodInstance);
+    }
+
+    return reservations;
+}
+
+
         private async Task<object> ValidateLogin(string sql, List<MySqlParameter> parms)
         {
             using var connection = new MySqlConnection(cs);
@@ -124,6 +111,92 @@ namespace API.DATABASE
 
         }
 
+
+            private async Task Reservation(string sql, List<MySqlParameter> parms)
+        {
+            List<customer> newCustomer = new();
+            using var connection = new MySqlConnection(cs);
+            await connection.OpenAsync();
+            using var command = new MySqlCommand(sql, connection);
+
+            if (parms != null)
+            {
+                command.Parameters.AddRange(parms.ToArray());
+            }
+            await command.ExecuteNonQueryAsync();
+
+        }
+
+
+      private async Task<bool> CreateReservationLogic(reservation newReservation)
+{
+    using var connection = new MySqlConnection(cs);
+    await connection.OpenAsync();
+
+    using var transaction = await connection.BeginTransactionAsync();
+
+    try
+    {
+        string insertReservationSql = @"INSERT INTO reservations (email_address, date, address) 
+                                         VALUES (@EmailAddress, @Date, @Address);
+                                         SELECT LAST_INSERT_ID();";
+        using var reservationCommand = new MySqlCommand(insertReservationSql, connection, transaction);
+        reservationCommand.Parameters.AddWithValue("@EmailAddress", newReservation.email_address);
+        reservationCommand.Parameters.AddWithValue("@Date", newReservation.date);
+        reservationCommand.Parameters.AddWithValue("@Address", newReservation.address);
+
+        int reservationId = Convert.ToInt32(await reservationCommand.ExecuteScalarAsync());
+
+        await transaction.CommitAsync();
+        return true;
+    }
+    catch
+    {
+        await transaction.RollbackAsync();
+        return false;
+    }
+}
+
+
+private async Task<bool> CreateFoodInstances(List<FoodInstance> foodInstances)
+{
+    using var connection = new MySqlConnection(cs);
+    await connection.OpenAsync();
+
+    using var transaction = await connection.BeginTransactionAsync();
+
+    try
+    {
+        string insertFoodInstanceSql = @"INSERT INTO food_instance (food_id, reservation_id, quantity) 
+                                         VALUES (@FoodId, @ReservationId, @Quantity);";
+
+        foreach (var foodInstance in foodInstances)
+        {
+            using var foodInstanceCommand = new MySqlCommand(insertFoodInstanceSql, connection, transaction);
+            foodInstanceCommand.Parameters.AddWithValue("@FoodId", foodInstance.food_id);
+            foodInstanceCommand.Parameters.AddWithValue("@ReservationId", foodInstance.reservation_id);
+            foodInstanceCommand.Parameters.AddWithValue("@Quantity", foodInstance.quantity);
+
+            await foodInstanceCommand.ExecuteNonQueryAsync();
+        }
+
+        await transaction.CommitAsync();
+        return true;
+    }
+    catch
+    {
+        await transaction.RollbackAsync();
+        return false;
+    }
+}
+
+
+
+
+
+
+
+
         public async Task<object> CustomerLogin(login newLogin)
         {
 
@@ -152,6 +225,14 @@ namespace API.DATABASE
 
 
 
+
+
+
+
+
+
+
+
         public async Task CreateCustomer(customer newCustomer)
         {
             string sql = "INSERT INTO customer (email_address, password, first_name, last_name) VALUES (@Email, @Password, @FirstName, @LastName)";
@@ -167,42 +248,66 @@ namespace API.DATABASE
         }
 
 
-        public async Task<List<reservation>> GetAllReservations()
-        {
-            string sql = "SELECT * FROM reservations;";
-            List<MySqlParameter> parms = new();
-            return await GetAllCustomerReservation(sql, parms);
-        }
 
 
-    //     public async Task<List<reservation>> GetSpecificReservation(int reservation_id)
-    //     {
-    //         Console.WriteLine($"Email Address: {reservation_id}");
-    //         string sql = @"
-    //     SELECT r.reservation_id, r.email_address, f.food_name, (f.food_price * fi.quantity) AS itemPrice 
-    //     FROM reservations r 
-    //     JOIN food_instance fi ON fi.reservation_id = r.reservation_id 
-    //     JOIN food f ON fi.food_id = f.food_id 
-    //     WHERE r.reservation_id = @reservation_id;";
 
-    //         List<MySqlParameter> parms = new()
-    // {
-    //     new MySqlParameter("@reservation_id", MySqlDbType.String) { Value = reservation_id }
-    // };
 
-    //         return await GetReservation(sql, parms);
-    //     }
 
-        public async Task<List<reservation>> GetCustomerReservations(string email_address)
-        {
-            string sql = @"Select reservation_id, email_address, date FROM reservations where email_address = @email_address";
-            List<MySqlParameter> parms = new()
+
+
+
+
+
+
+
+
+
+       public async Task<List<reservation>> GetAllReservations()
+{
+    string sql = @"SELECT 
+    r.reservation_id, 
+    r.email_address, 
+    r.date, 
+    r.address,
+    fi.food_id,
+    fi.quantity
+FROM 
+    reservations r
+JOIN 
+    food_instance fi ON r.reservation_id = fi.reservation_id
+ORDER BY 
+    r.reservation_id, fi.food_id;
+";
+    List<MySqlParameter> parms = new();
+    return await GetAllCustomerReservation(sql, parms);
+}
+
+
+public async Task<bool> CreateReservation(reservation reservationData, List<FoodInstance> foodInstances)
+{
+    if (reservationData == null || foodInstances == null || !foodInstances.Any())
     {
-        new MySqlParameter("@email_address", MySqlDbType.String) { Value = email_address }
-    };
+        throw new ArgumentException("Invalid reservation or food instance data.");
+    }
 
-            return await GetAllCustomerReservation(sql, parms);
+
+    bool isReservationCreated = await CreateReservationLogic(reservationData);
+
+    if (isReservationCreated)
+    {
+       
+        foreach (var foodInstance in foodInstances)
+        {
+            foodInstance.reservation_id = reservationData.reservation_id; 
         }
+
+       
+        bool areFoodInstancesCreated = await CreateFoodInstances(foodInstances);
+        return areFoodInstancesCreated;
+    }
+
+    return false;
+}
 
 
 

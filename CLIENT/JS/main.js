@@ -119,10 +119,5 @@ function customerDash(){
 
 
 
-    // Function to check if an element is in the viewport
-// Function to observe the elements and trigger the slide-in class
-// JavaScript code to observe when the elements come into the viewport
-
-// Function to observe elements and add the slide-in class
 
   

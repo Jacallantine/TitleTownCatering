@@ -15,7 +15,7 @@ const timeSelection = document.getElementById("time-selection");
 const hoursList = document.getElementById("hours-list");
 const prevMonthBtn = document.getElementById("prev-month");
 const nextMonthBtn = document.getElementById("next-month");
-const saveButton = document.getElementById("save-button"); // Button for saving
+const saveButton = document.getElementById("save-button"); 
 
 let currentDate = new Date();
 let selectedDate = null;

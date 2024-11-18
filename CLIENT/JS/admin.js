@@ -30,13 +30,14 @@ async function displayReservations(reservations){
         reservations.forEach((reservation) => {
             const reserv = document.createElement('div')
             reserv.style.cursor = 'pointer'
-            reserv.textContent = `${reservation.id}  ${reservation.email_address}  ${reservation.price}`
+            reserv.textContent = `${reservation.reservation_id}  ${reservation.email_address}  ${reservation.reservation_id}`
             reserv.classList.add('reserveName')
                     container.appendChild(reserv)
         
         
             reserv.addEventListener('click', ()=>{
-                window.location.href = `customerReservation.html?id=${reservation.id}`;
+                let object = encodeURIComponent(JSON.stringify(reservations));
+                window.location.href = `AReservationDetails.html?reservation_id=${reservation.reservation_id}&object=${object}`;
             })
         
         

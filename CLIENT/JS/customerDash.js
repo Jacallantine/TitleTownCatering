@@ -24,9 +24,8 @@ function GoToCalendar(email_address){
     window.location.href = `calendar.html?email_address=${email_address}`;
 }
 
-async function fetchReservations(email_address){
-    console.log(`Fetching reservations for: ${email_address}`); 
-    fetch(`http://localhost:5220/api/reservation/email/${email_address}`, {
+async function fetchReservations(){ 
+    fetch(`http://localhost:5220/api/reservation`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -42,16 +41,16 @@ async function fetchReservations(email_address){
             console.error("Error message:", data.message); 
             alert(data.message);
         }
-    })
-    .catch(error => {
-        console.error('Fetch error:', error);
-    });}
+    })}
 
 
 
 async function displayReservations(reservations){
+    let email_address = getQueryParam("email_address")
     let container = document.getElementById('reservations')
     reservations.forEach((reservation) => {
+        if(reservation.email_address === email_address)
+        {
         const reserv = document.createElement('div')
         reserv.style.cursor = 'pointer'
         reserv.textContent = `${reservation.reservation_id}  ${reservation.email_address}  ${reservation.date}`
@@ -60,8 +59,10 @@ async function displayReservations(reservations){
     
     
         reserv.addEventListener('click', ()=>{
-            window.location.href = `customerReservation.html?id=${reservation.id}`;
+            let object = encodeURIComponent(JSON.stringify(reservations));
+            window.location.href = `CReservationDetails.html?reservation_id=${reservation.reservation_id}&object=${object}`;
         })
+        }
     
     
     
