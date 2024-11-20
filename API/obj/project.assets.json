@@ -2234,27 +2234,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jared\\.nuget\\packages\\": {}
+    "C:\\Users\\Sgsch\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jared\\Documents\\TTC\\TitleTownCatering\\api\\API.csproj",
+      "projectUniqueName": "C:\\Users\\Sgsch\\Documents\\Coding\\321Class\\group_Project\\TitleTownCatering\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\jared\\Documents\\TTC\\TitleTownCatering\\api\\API.csproj",
-      "packagesPath": "C:\\Users\\jared\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jared\\Documents\\TTC\\TitleTownCatering\\api\\obj\\",
+      "projectPath": "C:\\Users\\Sgsch\\Documents\\Coding\\321Class\\group_Project\\TitleTownCatering\\API\\API.csproj",
+      "packagesPath": "C:\\Users\\Sgsch\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Sgsch\\Documents\\Coding\\321Class\\group_Project\\TitleTownCatering\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\jared\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Sgsch\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2318,7 +2315,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
