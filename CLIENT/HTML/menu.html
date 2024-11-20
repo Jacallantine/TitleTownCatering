@@ -3,57 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../CSS/menu.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Menu</title>
 </head>
 <body class="body" onload="handleOnLoad()">
     <div class="jumbotron">
         <h1 class="title">Our Catering Menu</h1>
-        <h6 class="undertitle">Delicious Dishes for Any Event</h6>
+        <h6 class="undertitle"><em>Delicious Dishes for Any Event</em></h6>
     </div>
     <br>
     <div class="container">
-        <div class="menu">
-            <div class="header">
-                <div class="line">
+        <div class="grid-container">
+            <div class="grid-item">
+                <div class="line">    
                     <h1 class="listTitle">Breakfast</h1>
+                    <div id="breakfast"></div>
                 </div>
-                <br>
-                <div id="breakfast"></div>
             </div>
-            <div class="header">
-                <div class="line">
-                    <h1 class="listTitle">Lunch</h1>
-                </div>
-                <br>
-                <div id="lunch"></div>
-            </div>
-            <div class="header">
-                <div class="line">
-                    <h1 class="listTitle">Dinner</h1>
-                </div>
-                <br>
-                <div id="dinner"></div>
+            <div class="grid-item">
+                <span><img src="../PHOTO/biscuits.webp" alt="photo of biscuits" class="menuphoto"></span>
             </div>
 
-            <div class="header">
+            <div class="grid-item">
                 <div class="line">
-                    <h1 class="listTitle">Bakery</h1>
+                    <h1 class="listTitle">Lunch</h1>
+                    <div id="lunch"></div>
                 </div>
-                <br>
-                <div id="bakery"></div>
+            </div>
+            <div class="grid-item">
+                <span><img src="../PHOTO/chickensandwich.jpeg" alt="photo of chicken sandwich" class="menuphoto"></span>
+            </div>
+
+            <div class="grid-item">
+                <div class="line">
+                    <h1 class="listTitle">Dinner</h1>
+                    <div id="dinner"></div>
+                </div>
+            </div>
+            <div class="grid-item">
+                <span><img src="../PHOTO/lowcountryboil.webp" alt="photo of low country boil" class="menuphoto"></span>
+            </div>
+
+            <div class="grid-item">
+                <div class="line">
+                    <h1 class="listTitle">Sides</h1>
+                    <div id="sides"></div>
+                </div>
+            </div>
+            <div class="grid-item">
+                <span><img src="../PHOTO/macandcheese.jpg" alt="photo of mac and cheese" class="menuphoto"></span>
+            </div>
+
+            <div class="grid-item">
+                <div class="line">
+                    <h1 class="listTitle">Drinks</h1>
+                    <div id="drinks"></div>
+                </div>
+            </div>
+            <div class="grid-item">
+                <span><img src="../PHOTO/sweettea.jpg" alt="photo of sweet tea" class="menuphoto"></span>
             </div>
         </div>
     </div>
-
-    <div class = "footer-wrapper">
-    <footer>
-        <p>&copy; 2024 TitleTownCatering | Delicious meals for all occasions!</p>
-    </footer>
-</div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="../JS/menu.js"></script>
 </body>

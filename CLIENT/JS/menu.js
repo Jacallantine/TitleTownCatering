@@ -1,11 +1,12 @@
 async function handleOnLoad(){
-    await fillMenu();
+    fillMenu();
 }
 function fillMenu(){
     Breakfast()
     Lunch()
     Dinner()
-    Bakery()
+    Sides()
+    Drinks()
 }
 function Breakfast(){
     let html = `
@@ -27,9 +28,9 @@ function Lunch(){
     <span>$50</span></li>
     <li>Hot Dogs
     <span>$40</span></li>
-    <li>Cheeseburger 
+    <li>Burgers 
     <span>$45</span></li>
-    <li>Pizza 
+    <li>Po' Boys 
     <span>$45</span></li>
   </ul>`
     document.getElementById("lunch").innerHTML = html;
@@ -38,22 +39,32 @@ function Dinner(){
     let html = `<ul>
     <li>Steak 
     <span>$100</span></li>
-    <li>Chicken Alfredo 
+    <li>Fried Catfish 
     <span>$65</span></li>
-    <li>Chicken with Herbs 
+    <li>Low Country Boil
     <span>$65</span></li>
     </ul>`
     document.getElementById("dinner").innerHTML = html;
 }
-
-function Bakery(){
+function Sides(){
     let html = `<ul>
-    <li>Blue Berry Muffins 
-    <span>$60</span></li>
-    <li>Apple Pie 
-    <span>$65</span></li>
-    <li>Glazed Donuts 
-    <span>$65</span></li>
+    <li>Mac and Cheese 
+    <span>$20</span></li>
+    <li>Mashed Potatoes 
+    <span>$20</span></li>
+    <li>Cheese and Grits
+    <span>$20</span></li>
     </ul>`
-    document.getElementById("bakery").innerHTML = html;
+    document.getElementById("sides").innerHTML = html;
+}
+function Drinks(){
+    let html = `<ul>
+    <li>Sweet Tea 
+    <span>$15</span></li>
+    <li>Coca Cola 
+    <span>$15</span></li>
+    <li>Lemonade
+    <span>$15</span></li>
+    </ul>`
+    document.getElementById("drinks").innerHTML = html;
 }

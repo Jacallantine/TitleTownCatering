@@ -1,34 +1,11 @@
 .body{
-    background-color: #1f1f1f; 
-    padding-top: 100px;
-    /* height: 110vh; */
-
+    background: #36454F;
 }
 .jumbotron{
-    position: fixed;
     text-align: center;
-    background:  rgb(88, 141, 255); 
-    padding: 18px;
-    top: 0;
-    left: 0;
-    width: 100vw;
-
-    
-}
-.menu{
-    background-color: #f2f2f2;
-    background-color: white;
-    border: solid rgb(88, 141, 255) 3px;
-    border-radius: 30px;
-    block-size: auto;
-    padding: 30px;
-}
-.header{
-    text-align: left;
-    padding: 10px;
-}
-.line{
-    border-bottom: solid  rgb(88, 141, 255) 5px;
+    background: #0F52BA; 
+    padding: 25px;
+    outline: 6px solid black;
 }
 .title{
     color: #f2f2f2;
@@ -36,35 +13,26 @@
 .undertitle{
     color: white;
 }
-ul li span{
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    background-color: #f2f2f2;
+    border: solid black 3px;
+    border-radius: 30px;
+    padding: 10px;
+}
+.grid-item{
+    padding: 20px;
+    font-size: 30px;
+    text-align: left;
+}
+span{
     float: right;
 }
-
-
-.footer-wrapper{
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    position: fixed;
-    bottom:0;
+.line{
+    border-bottom: solid #0F52BA 5px;
 }
-
-
-
-
-footer {
-    text-align: center;
-    padding:3px 20px;
-    background-color: rgb(88, 141, 255);
-    color: white;
-    width: 34%;
-    border-top-left-radius: 6px;
-    border-top-right-radius:6px;
-    font-size: 10px;
-    border:1px solid black;
-    border-bottom: 1px solid transparent;
+.menuphoto{
+    height: 300px;
+    width: 300px;
 }
-footer p{
-margin:6px 55px ;
-}
-
