@@ -53,7 +53,7 @@ const ReservationData = {
 
     reservation_id: reservation_id,
     email_address: email_address,
-    date: DateTime,
+    date: new Date(DateTime).toISOString(),
     address: "123 Example Street"
 };
 
@@ -195,5 +195,5 @@ function getQueryParam(param) {
     return urlParams.get(param);
 }
 function GUID() {
-    return Math.floor(1000 + Math.random() * 9000).toString();
+    return Math.floor(1000 + Math.random() * 9000)
 }

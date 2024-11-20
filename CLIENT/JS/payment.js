@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-
+    let combinedData = getQueryParam("combinedData");
+    let deserializedData = JSON.parse(decodeURIComponent(combinedData));
+    console.log(deserializedData)
 });
 
 function getQueryParam(name) {

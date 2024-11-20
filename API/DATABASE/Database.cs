@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 using API.MODELS;
 namespace API.DATABASE
@@ -46,7 +47,7 @@ namespace API.DATABASE
             {
                 reservation_id = reservationId,
                 email_address = reader.GetString(reader.GetOrdinal("email_address")),
-                date = reader.GetString(reader.GetOrdinal("date")),
+                date = DateTime.Parse(reader.GetString(reader.GetOrdinal("date"))), 
                 address = reader.GetString(reader.GetOrdinal("address")),
                 FoodInstances = new List<FoodInstance>()
             };
@@ -137,13 +138,13 @@ namespace API.DATABASE
 
     try
     {
-        string insertReservationSql = @"INSERT INTO reservations (email_address, date, address) 
-                                         VALUES (@EmailAddress, @Date, @Address);
-                                         SELECT LAST_INSERT_ID();";
+        string insertReservationSql = @"INSERT INTO reservations (email_address, date, address, reservation_id) 
+                                         VALUES (@EmailAddress, @Date, @Address, @ReservationID);";
         using var reservationCommand = new MySqlCommand(insertReservationSql, connection, transaction);
         reservationCommand.Parameters.AddWithValue("@EmailAddress", newReservation.email_address);
         reservationCommand.Parameters.AddWithValue("@Date", newReservation.date);
         reservationCommand.Parameters.AddWithValue("@Address", newReservation.address);
+        reservationCommand.Parameters.AddWithValue("@ReservationID", newReservation.address);
 
         int reservationId = Convert.ToInt32(await reservationCommand.ExecuteScalarAsync());
 
@@ -167,7 +168,7 @@ private async Task<bool> CreateFoodInstances(List<FoodInstance> foodInstances)
 
     try
     {
-        string insertFoodInstanceSql = @"INSERT INTO food_instance (food_id, reservation_id, quantity) 
+        string insertFoodInstanceSql = @"INSERT INTO food_instance (food_id, quantity, reservaton_id) 
                                          VALUES (@FoodId, @ReservationId, @Quantity);";
 
         foreach (var foodInstance in foodInstances)
@@ -285,29 +286,33 @@ ORDER BY
 
 public async Task<bool> CreateReservation(reservation reservationData, List<FoodInstance> foodInstances)
 {
+    // Validate the input data
     if (reservationData == null || foodInstances == null || !foodInstances.Any())
     {
         throw new ArgumentException("Invalid reservation or food instance data.");
     }
 
+    // Log received data to ensure the service layer is receiving the correct values
+    Console.WriteLine($"Processing Reservation: {JsonConvert.SerializeObject(reservationData)}");
+    Console.WriteLine($"Processing Food Instances: {JsonConvert.SerializeObject(foodInstances)}");
 
+    // Create reservation logic
     bool isReservationCreated = await CreateReservationLogic(reservationData);
-
-    if (isReservationCreated)
+    if (!isReservationCreated)
     {
-       
-        foreach (var foodInstance in foodInstances)
-        {
-            foodInstance.reservation_id = reservationData.reservation_id; 
-        }
-
-       
-        bool areFoodInstancesCreated = await CreateFoodInstances(foodInstances);
-        return areFoodInstancesCreated;
+        return false;  // Exit early if reservation creation fails
     }
 
-    return false;
+    // Proceed with food instances creation
+    foreach (var foodInstance in foodInstances)
+    {
+        foodInstance.reservation_id = reservationData.reservation_id; 
+    }
+
+    bool areFoodInstancesCreated = await CreateFoodInstances(foodInstances);
+    return areFoodInstancesCreated;
 }
+
 
 
 
