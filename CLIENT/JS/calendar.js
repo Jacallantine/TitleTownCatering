@@ -109,8 +109,9 @@ function selectHour(hour) {
 
 function saveReservation(email_address) {
     console.log('Reservation saved:', selectedDateTime);
+    let first_name = getQueryParam("first_name")
     var email_address = getQueryParam("email_address");
-    window.location.href = `reservation.html?DateTime=${selectedDateTime}&email_address=${email_address}`;
+    window.location.href = `reservation.html?DateTime=${selectedDateTime}&email_address=${email_address}&first_name=${first_name}`;
     saveButton.style.display = 'none';
 }
 

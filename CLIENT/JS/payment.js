@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     let combinedData = getQueryParam("combinedData");
     let deserializedData = JSON.parse(decodeURIComponent(combinedData));
+    let email_address = getQueryParam("email_address")
+    console.log(email_address)
     console.log(deserializedData)
 });
 
@@ -14,8 +16,9 @@ function getQueryParam(name) {
 
 async function createReservation(){
     let combinedData = getQueryParam("combinedData");
+    let email_address = getQueryParam("email_address")
+    let first_name = getQueryParam("first_name")
     let deserializedData = JSON.parse(decodeURIComponent(combinedData));
-
 
 
     const response = await fetch('http://localhost:5220/api/reservation', {
@@ -24,16 +27,10 @@ async function createReservation(){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(deserializedData)
-    });
+    }).then( window.location.href = `customerDash.html?email_address=${email_address}&first_name=${first_name}`)
 
-    if (response.ok) {
-        const response = await response.json();
-        alert(response.message); 
-    } else {
-        const errorResponse = await response.json();
-        console.error('Error details:', errorResponse);
-        alert('Error creating user: ' + errorResponse.message);
-    }
+   
+
 
 
 }

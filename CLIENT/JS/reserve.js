@@ -82,10 +82,10 @@ function RetrieveInstances(){
     ];
     
     let currentReservation = {
-        reservation_id: Reservation.reservation_id,
-        email_address: Reservation.email_address,
+        reservation_id: ReservationData.reservation_id,
+        email_address: ReservationData.email_address,
         date: new Date(DateTime).toISOString(),
-        address: Reservation.address,
+        address: ReservationData.address,
         FoodInstances: AllFoodInstances.filter(item => item.quantity > 0)
     };
     console.log(currentReservation)
@@ -97,6 +97,7 @@ function RetrieveInstances(){
 
 function makePayment() {
 
+    let first_name = getQueryParam("first_name")
 
     let reservationRequest = RetrieveInstances();  
   
@@ -104,7 +105,7 @@ function makePayment() {
 
     let combinedDataStr = encodeURIComponent(JSON.stringify(reservationRequest));
 
-    window.location.href = `payment.html?combinedData=${combinedDataStr}`;
+    window.location.href = `payment.html?combinedData=${combinedDataStr}&first_name=${first_name}&email_address=${email_address}`;
 }
 
 

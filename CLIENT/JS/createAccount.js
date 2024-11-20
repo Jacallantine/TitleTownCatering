@@ -20,7 +20,8 @@ async function createUser(){
             email_address: email_address
 
         })
-});
+})
+.then(window.open("signIn.html", "_self"));
 
     
    

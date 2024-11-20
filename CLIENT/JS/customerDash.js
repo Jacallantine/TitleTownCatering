@@ -20,8 +20,9 @@ function getQueryParam(param) {
     return urlParams.get(param);
 }
 function GoToCalendar(email_address){
+    let first_name = getQueryParam("first_name")
     var email_address = getQueryParam("email_address");
-    window.location.href = `calendar.html?email_address=${email_address}`;
+    window.location.href = `calendar.html?email_address=${email_address}&first_name=${first_name}`;
 }
 
 async function fetchReservations(){ 
