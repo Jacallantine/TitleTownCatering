@@ -19,7 +19,8 @@ async function createReservation(){
     let email_address = getQueryParam("email_address")
     let first_name = getQueryParam("first_name")
     let deserializedData = JSON.parse(decodeURIComponent(combinedData));
-
+    let address = document.getElementById('address').value
+    deserializedData.address = address
 
     const response = await fetch('http://localhost:5220/api/reservation', {
         method: 'POST',
