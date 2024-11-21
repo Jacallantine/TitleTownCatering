@@ -6,7 +6,7 @@ async function createUser(){
     let address = document.getElementById('address').value;
     let zipcode = document.getElementById('zip').value;
     let state = document.getElementById('state').value;
-    let gender = document.getElementById('gender').value;
+    
 
     const response = await fetch('http://localhost:5220/api/customer', {
         method: 'POST',

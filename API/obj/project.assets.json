@@ -2239,11 +2239,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jared\\Documents\\TTC\\titletowncatering\\api\\API.csproj",
+      "projectUniqueName": "C:\\Users\\jared\\Documents\\hurry\\titletowncatering\\api\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\jared\\Documents\\TTC\\titletowncatering\\api\\API.csproj",
+      "projectPath": "C:\\Users\\jared\\Documents\\hurry\\titletowncatering\\api\\API.csproj",
       "packagesPath": "C:\\Users\\jared\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jared\\Documents\\TTC\\titletowncatering\\api\\obj\\",
+      "outputPath": "C:\\Users\\jared\\Documents\\hurry\\titletowncatering\\api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\jared\\AppData\\Roaming\\NuGet\\NuGet.Config",
