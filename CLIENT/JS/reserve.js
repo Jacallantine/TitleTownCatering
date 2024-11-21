@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
    console.log(DateTime)
    console.log(email_address)
    console.log(reservation_id)
+
    
     
 })
@@ -31,6 +32,15 @@ const S = document.getElementById("steak")
 const FC = document.getElementById("friedCatfish")
 const B = document.getElementById("boil")
 
+const sweetTea = document.getElementById('sweetTea')
+const coke = document.getElementById('coke')
+const lemonade = document.getElementById('lemonade')
+
+const mac = document.getElementById('mac')
+const mash = document.getElementById("mashP")
+const CNG = document.getElementById('CNG')
+
+
 Biscuit.addEventListener('input', TotalEntreeCost)
 SENC.addEventListener('input', TotalEntreeCost)
 ENC.addEventListener('input', TotalEntreeCost)
@@ -46,7 +56,13 @@ S.addEventListener('input', TotalEntreeCost)
 FC.addEventListener('input', TotalEntreeCost)
 B.addEventListener('input', TotalEntreeCost)
 
+sweetTea.addEventListener('input',totalBeverageCost)
+coke.addEventListener('input', totalBeverageCost)
+lemonade.addEventListener('input', totalBeverageCost)
 
+mac.addEventListener('input',totalSideCost)
+mash.addEventListener('input', totalSideCost)
+CNG.addEventListener('input', totalSideCost)
 
 
 const ReservationData = {
@@ -113,57 +129,78 @@ function makePayment() {
 
 
 
-// function totalBeverageCost(){
+function totalBeverageCost() {
+    const beverages = [
+        { id: 'sweetTea', price: 15 },
+        { id: 'coke', price: 15 },
+        { id: 'lemonade', price: 15 }
+    ];
 
-//     let sweetTeaQuantity = parseFloat(document.getElementById('sweetTea').value) || 0
-//     let unsweetTeaQuantity = parseFloat(document.getElementById('unsweetTea').value) || 0
-//     let blackCoffeeQuantity = parseFloat(document.getElementById('blackCoffee').value) || 0
-//     let cappuccinoQuantity = parseFloat(document.getElementById('cappuccino').value) || 0
-//     let latteQuantity = parseFloat(document.getElementById('latte').value) || 0
-//     let greenTeaQuantity = parseFloat(document.getElementById('greenTea').value) || 0
-//     let mDewQuantity = parseFloat(document.getElementById('mDew').value) || 0
-//     let cokeQuantity = parseFloat(document.getElementById('coke').value) || 0
-//     let drPepperQuantity = parseFloat(document.getElementById('drPepper').value) || 0
+    let drinkCost = beverages.reduce((total, beverage) => {
+        const quantity = parseFloat(document.getElementById(beverage.id).value) || 0;
+        return total + (quantity * beverage.price);
+    }, 0);
 
-//     let drinkCost = (mDewQuantity * priceSoda) + (drPepperQuantity * priceSoda) + 
-//     (cokeQuantity * priceSoda) + (greenTeaQuantity * priceGreenTea) + (sweetTeaQuantity * priceSweetTea) + 
-//     (blackCoffeeQuantity * priceCoffee) + (unsweetTeaQuantity *PriceUnsweetTea) + 
-//     (cappuccinoQuantity * priceCoffee) + (latteQuantity *priceCoffee)
+    document.getElementById('beverages').value = drinkCost.toFixed(2);
+    totalCost();
+}
 
-//     document.getElementById('beverages').value = drinkCost.toFixed(2)
-//     totalCost()
 
-// }
 
-// function totalSideCost(){
 
-//     let appleQuantity = parseFloat(document.getElementById('apple').value) || 0; 
-//     let bananaQuantity = parseFloat(document.getElementById('orange').value) || 0; 
-//     let orangeQuantity =parseFloat(document.getElementById('banana').value) || 0; 
-//     const sideCost = (appleQuantity * priceApple) + (bananaQuantity * priceBanana) + (orangeQuantity * priceOrange)
 
-//     document.getElementById('sides').value = sideCost.toFixed(2)
-//     totalCost()
-// }
+function totalSideCost(){
+    const sides = [
+        {id: 'mac', price: 20},
+        {id: 'mashP', price: 20},
+        {id: 'CNG', price : 20}
+    ]
 
-function TotalEntreeCost() {
+    let sideCost = sides.reduce((total, side) =>{
+        const quantity = parseFloat(document.getElementById(side.id).value) || 0;
+        return total + (quantity * side.price)
+    }, 0)
 
-    let entreeCost = (bencQuantity * priceBENC) + (sencQuantity * priceSENC) + (encQuantity * priceENC) + (hncQuantity * priceHNC) + (tncQuantity * priceTNC) + (bncQuantity * priceBNC)
-    + (gcQuantity * priceGC) + (pcsQuantity * pricePCS) * (csQuantity * priceCS)
-    
-    document.getElementById('entrees').value = entreeCost.toFixed(2) 
+    document.getElementById('sidesInput').value = sideCost.toFixed(2)
     TotalCost()
 }
 
 
-// function TotalCost() {
-//     let totalEntree = parseFloat(document.getElementById('entrees').value) || 0;
-//     let totalSide = parseFloat(document.getElementById('sides').value) || 0;
-//     let totalBeverages = parseFloat(document.getElementById('beverages').value) || 0;
+
+function TotalEntreeCost() {
+
+    const entrees = [
+        {id: 'biscuit', price: 20},
+        {id: 'SENC', price: 20},
+        {id: 'ENC', price : 20},
+        {id: 'SB', price: 20},
+        {id: 'chickenSandwich', price: 20},
+        {id: 'poBoy', price : 20},
+        {id: 'cheeseBurger', price: 20},
+        {id: 'hotDog', price: 20},
+        {id: 'steak', price: 20},
+        {id: 'friedCatfish', price: 20},
+        {id: 'boil', price: 20},
+    ]
+
+    let entreeCost = entrees.reduce((total, entree) =>{
+        const Equantity = parseFloat(document.getElementById(entree.id).value) || 0;
+        return total + (Equantity * entree.price)
+    }, 0)
+
+    document.getElementById('entrees').value = entreeCost.toFixed(2)
+    TotalCost()
+}
+
+
+function TotalCost() {
+    let totalEntree = parseFloat(document.getElementById('entrees').value) || 0;
+    let totalSide = parseFloat(document.getElementById('sidesInput').value) || 0;
+    let totalBeverages = parseFloat(document.getElementById('beverages').value) || 0;
  
-//     let totalCost = totalEntree + totalSide + totalDeserts + totalBeverages;
-//     document.getElementById('total').value = totalCost.toFixed(2);
-//  }
+    let totalCost = totalEntree + totalSide + totalBeverages;
+    document.getElementById('total').value = totalCost.toFixed(2);
+ }
 
 
 

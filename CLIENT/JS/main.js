@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     
 function customerDash(){
-    window.open('customerDash.html', '_self')
+    window.location.href = `customerDash.html?email_address=${email_address}&first_name=${first_name}`
 }
 
     function menuHTML(){

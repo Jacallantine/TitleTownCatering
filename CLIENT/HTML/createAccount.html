@@ -23,45 +23,69 @@
     <div class="createAccount-container">
 
 
-        <div class = 'createAccount-row'>
-            <label for="fName">First Name</label>
-            <input type="text" id="fName">
-        </div>
 
-        <div class="createAccount-row" >
-            <label for="lName">Last Name</label>
-            <input type="text" id="lName">
 
-        </div>
-        <div class="createAccount-row" >
-            <label for="email">Email</label>
-            <input type="text" id="email">
-        </div>
+            <div class = 'top'>
+
+                <label for="fName">First Name</label>
+                <input type="text" id="fName">
+
+                <label for="lName">Last Name</label>
+                <input type="text" id="lName">
+
+                <label for="email">Email</label>
+                <input type="text" id="email">
+
+                <label for="password">Password</label>
+                <input type="text" id="password">
+
+                <label for="address">Address</label>
+                <input type="text" id="address">
+
+            </div>
+
+            <div class = 'bottom'>
+
+                <label for="state">State</label>
+                <input type="text" id="state">
+
+                <label for="zip">Zip Code</label>
+                <input type="text" id="zip">
+
+                <button onclick = "createUser()" class = 'send'><span>Create Account</span></button>
+
+            </div>
+
+
+
+       
+     
 
         
-        <div class="createAccount-row" >
-            <label for="password">password</label>
-            <input type="text" id="password">
-        </div>
+    
+       
 
-        <div class="createAccount-row" >
-            <label for="address">Address</label>
-            <input type="text" id="address">
-        </div>
-
-        <div class="createAccount-row" id = 'rows'>
-            <label for="state">State</label>
-            <input type="text" id="state">
-
-            <label for="zip">Zip Code</label>
-            <input type="text" id="zip">
-           
-        </div>
-        <div class="createAccount-row" id = 'rows'>
-            <button onclick = "createUser()" class = 'send'><span>Create Account</span></button>
-        </div>
+        
+       
 
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <div class = footer-wrapper>
         <footer>

@@ -1,9 +1,9 @@
 .body{
-    background: #36454F;
+    background-color: #1f1f1f; 
 }
 .jumbotron{
     text-align: center;
-    background: #0F52BA; 
+    background-color: rgb(88, 141, 255);  
     padding: 25px;
     outline: 6px solid black;
 }

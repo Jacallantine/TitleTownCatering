@@ -8,7 +8,7 @@ body{
 
 .formGrid {
     position: relative;
-    width: 25%;
+    width: 35%;
     height: 75%;
     background-color: rgb(88, 141, 255); 
     padding: 25px 40px;
@@ -52,8 +52,11 @@ body{
     grid-row:4/5;
     grid-column: 3/5;
 }
+#address{
+    grid-column: 1/5;
+}
 #paymentButton{
-    grid-row:5/6;
+    grid-row:6/7;
     grid-column: 1/5;
     display: inline-flex;
     align-items: center;
