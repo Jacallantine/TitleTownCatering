@@ -109,7 +109,7 @@ html, body {
     z-index: -1;
     background-color: rgba(0, 0, 0, 0.9);
     filter: blur(4px);
-    animation: changeBackground 20s infinite;
+    animation: changeBackground 20s infinite ;
 }
 
 #slogan2{

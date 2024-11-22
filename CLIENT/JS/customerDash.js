@@ -9,10 +9,15 @@ document.addEventListener('DOMContentLoaded', ()=>{
     document.getElementById('signIn').textContent = first_name;
 
    fetchReservations(email_address)
+    let current = document.getElementById("current")
+    current.classList.add("active")
+   
 
 
 
 })
+const currentDate = new Date();
+let reservationsData = []
 
 
 function getQueryParam(param) {
@@ -37,47 +42,98 @@ async function fetchReservations(){
         
         if (response.ok) {
             console.log("Reservations List:", data);  
-            displayReservations(data);  
+            reservationsData = data
+            showCurrentReservations(data)
         } else {
             console.error("Error message:", data.message); 
             alert(data.message);
         }
     })}
 
+    
 
 
-async function displayReservations(reservations){
-    let email_address = getQueryParam("email_address")
-    let container = document.getElementById('reservations')
-    reservations.forEach((reservation) => {
-        if(reservation.email_address === email_address)
-        {
-        const reserv = document.createElement('div')
-        reserv.style.cursor = 'pointer'
-        reserv.textContent = `${reservation.reservation_id}  ${reservation.email_address}  ${reservation.date}`
-        reserv.classList.add('reserveName')
-                container.appendChild(reserv)
+
+    let current = document.getElementById("current");
+    let past = document.getElementById("past");
     
-    
-        reserv.addEventListener('click', ()=>{
-            let object = encodeURIComponent(JSON.stringify(reservations));
-            window.location.href = `CReservationDetails.html?reservation_id=${reservation.reservation_id}&object=${object}`;
-        })
-        }
-    
-    
-    
-    
-        
+    document.getElementById('current').addEventListener('click', () => {
+        timeButtonBackground(current);
+        showCurrentReservations();
     });
-    const showMore = document.createElement('h3')
+    
+    document.getElementById('past').addEventListener('click', () => {
+        timeButtonBackground(past);
+        showPastReservations();
+    });
+    
+    function timeButtonBackground(selectedButton) {
+        const buttons = [current, past]; 
+    
+        buttons.forEach(button => {
+            button.classList.remove("active"); 
+        });
+    
+        selectedButton.classList.add("active"); 
+    }
+
+    async function showCurrentReservations(reservations){
+        let title = document.getElementById('title')
+        title.textContent = "CURRENT RESERVATIONS"
+        let email_address = getQueryParam("email_address")
+        let container = document.getElementById('reservations')
+        container.innerHTML = '';
+
+        reservationsData.forEach(reservation =>{
+            if(new Date(reservation.date) > currentDate && reservation.email_address === email_address)
+                {
+                    const reserv = document.createElement('div')
+                    reserv.style.cursor = 'pointer'
+                    reserv.textContent = `${reservation.reservation_id}  ${reservation.email_address}`
+                    reserv.classList.add('reserveName')
+                            container.appendChild(reserv)
+                
+                
+                    reserv.addEventListener('click', ()=>{
+                        let object = encodeURIComponent(JSON.stringify(reservations));
+                        window.location.href = `CReservationDetails.html?reservation_id=${reservation.reservation_id}&object=${object}`;
+                    })
+                }
+        })
+        const showMore = document.createElement('h3')
+        showMore.textContent = "Click to show more"
+        showMore.classList.add('showMore')
+        container.appendChild(showMore)
+    
+    }
+
+    async function showPastReservations(reservations){
+        let title = document.getElementById('title')
+        title.textContent = "PAST RESERVATIONS"
+        let email_address = getQueryParam("email_address")
+        let container = document.getElementById('reservations')
+        container.innerHTML = '';
+        reservationsData.forEach(reservation =>{
+            if(new Date(reservation.date) < currentDate && reservation.email_address === email_address)
+                {
+                    const reserv = document.createElement('div')
+                    reserv.style.cursor = 'pointer'
+                    reserv.textContent = `${reservation.reservation_id}  ${reservation.email_address}`
+                    reserv.classList.add('reserveName')
+                            container.appendChild(reserv)
+                
+                
+                    reserv.addEventListener('click', ()=>{
+                        let object = encodeURIComponent(JSON.stringify(reservations));
+                        window.location.href = `CReservationDetails.html?reservation_id=${reservation.reservation_id}&object=${object}`;
+                    })
+                }
+        })
+        const showMore = document.createElement('h3')
         showMore.textContent = "Click to show more"
         showMore.classList.add('showMore')
         container.appendChild(showMore)
     }
-
-
-
-
+    
 
 

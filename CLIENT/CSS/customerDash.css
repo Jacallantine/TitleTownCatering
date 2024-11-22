@@ -12,6 +12,46 @@ body{
     opacity: 0.5;
 
 }
+.timeButtons{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 2em 0 4em 0;
+    width: 40%;
+    button{
+        border:1px solid transparent;
+        padding: 25px;
+        background-color: rgb(88, 141, 255);
+        font-size: 16px;
+        font-weight: 600;
+        color: white;
+        transition: 0.7s;
+
+        &.active{
+            background-color:rgba(88, 141, 255, 0.527);
+            color: white;
+            transition: 0.7s;
+
+        }
+    }
+   
+
+    #current{
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+        border-left: 1px solid white;
+        
+    }
+
+    #past{
+        border-top-left-radius: 12px;
+        border-bottom-left-radius: 12px;
+        border-right: 1px solid white;
+        
+    }
+    
+}
+
+
 
 
 .reservation-container{
@@ -29,11 +69,12 @@ body{
 .reserveName{
     position: relative;
     margin-top: 20px;
+    transition: 0.7s;
 }
 
 .reserveName::before{
     content: "";
-    bottom: -8px;
+    bottom: -2px;
     left: 0;
     height: 2px;
     width: 0;
@@ -41,6 +82,7 @@ body{
     position: absolute;
     transition: 0.7s;
 }
+
 
 .reserveName:hover::before{
     width: 100%;
