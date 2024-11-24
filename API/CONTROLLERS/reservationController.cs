@@ -23,7 +23,12 @@ namespace API.CONTROLLERS
                Database myDatabase = new();
                return await myDatabase.GetAllReservations();
           }
-
+          [HttpGet("food")]
+          public async Task<List<food>> GetFoods()
+          {
+               Database myDatabase = new();
+               return await myDatabase.FoodProxy();
+          }
 
 [HttpPost]
 public async void Post([FromBody] reservation request)

@@ -3,6 +3,8 @@ let reservationsList = [];
 
 document.addEventListener('DOMContentLoaded', ()=>{
     fetchAllReservations()
+    let current = document.getElementById("current")
+    current.classList.add("active")
 })
 
 

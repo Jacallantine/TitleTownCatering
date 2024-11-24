@@ -19,7 +19,30 @@ namespace API.DATABASE
             cs = "server=d13xat1hwxt21t45.cbetxkdyhwsb.us-east-1.rds.amazonaws.com;database=wyy58hdk8euoriv4;user=ujsfwodssb8dddhf;password=aza6uqhshq753iyv;port=3306;";
         }
        
-
+      private async Task<List<food>> GetAllFoods(string sql, List<MySqlParameter> parms)
+        {
+            List<food> foods = new();
+            using var connection = new MySqlConnection(cs);
+            await connection.OpenAsync();
+            using var command = new MySqlCommand(sql, connection);
+            if (parms != null)
+            {
+                command.Parameters.AddRange(parms.ToArray());
+            }
+            using var reader = command.ExecuteReader();
+            while (await reader.ReadAsync())
+            {
+                foods.Add(new food()
+                {
+                    food_id = reader.GetInt32(0),
+                    food_name = reader.GetString(1),
+                    food_price = reader.GetInt32(2),
+                    food_type = reader.GetString(3),
+                    feed_count = reader.GetInt32(4)
+                });
+            }
+            return foods;
+        }
 
   private async Task<List<reservation>> GetAllCustomerReservation(string sql, List<MySqlParameter> parms)
 {
@@ -255,6 +278,14 @@ public async Task CreateReservation(reservation reservationData)
     
     
 }
+
+public async Task<List<food>> FoodProxy()
+{
+    string sql = @"Select * from food";
+      List<MySqlParameter> parms = new();
+    return await GetAllFoods(sql, parms);
+}
+
 
 
 

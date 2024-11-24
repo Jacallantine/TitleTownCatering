@@ -2234,19 +2234,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/alexvanalstyne/.nuget/packages/": {}
+    "C:\\Users\\jared\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/alexvanalstyne/Desktop/userfiles/groupproj/TitleTownCatering/API/API.csproj",
+      "projectUniqueName": "C:\\Users\\jared\\Documents\\11.24\\titletowncatering\\api\\API.csproj",
       "projectName": "API",
-      "projectPath": "/Users/alexvanalstyne/Desktop/userfiles/groupproj/TitleTownCatering/API/API.csproj",
-      "packagesPath": "/Users/alexvanalstyne/.nuget/packages/",
-      "outputPath": "/Users/alexvanalstyne/Desktop/userfiles/groupproj/TitleTownCatering/API/obj/",
+      "projectPath": "C:\\Users\\jared\\Documents\\11.24\\titletowncatering\\api\\API.csproj",
+      "packagesPath": "C:\\Users\\jared\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\jared\\Documents\\11.24\\titletowncatering\\api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/alexvanalstyne/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\jared\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -2264,6 +2264,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -2310,7 +2315,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.402/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
