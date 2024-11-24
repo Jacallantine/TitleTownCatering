@@ -1,6 +1,10 @@
+const currentDate = new Date();
+let reservationsList = [];
+
 document.addEventListener('DOMContentLoaded', ()=>{
     fetchAllReservations()
 })
+
 
 
 
@@ -13,10 +17,10 @@ async function fetchAllReservations(){
         }
     })
     .then(async (response) => {
-        const reservationsList = await response.json();
+        reservationsList = await response.json();
         if (response.ok) {
             console.log("Reservations List:", reservationsList);
-            displayReservations(reservationsList)
+            showCurrentReservations(reservationsList)
         
         } else {
             alert(data.message);  
@@ -24,10 +28,40 @@ async function fetchAllReservations(){
     })
 }
 
+function CurrentButton(){
+    let current = document.getElementById("current");
+    
+    document.getElementById('current').addEventListener('click', () => {
+        timeButtonBackground(current);
+        showCurrentReservations(reservationsList);
+    });
+}
+function PastButton(){
+    let past = document.getElementById("past");
+    
+    document.getElementById('past').addEventListener('click', () => {
+        timeButtonBackground(past);
+        showPastReservations(reservationsList);
+    });
+}
 
-async function displayReservations(reservations){
-        let container = document.getElementById('reservations')
-        reservations.forEach((reservation) => {
+function timeButtonBackground(selectedButton) {
+    const buttons = [current, past]; 
+
+    buttons.forEach(button => {
+        button.classList.remove("active"); 
+    });
+
+    selectedButton.classList.add("active"); 
+}
+
+async function showCurrentReservations(reservations){
+
+    let container = document.getElementById('reservations')
+    container.innerHTML = '';
+
+    reservations.forEach((reservation) => {
+        if(new Date(reservation.date) > currentDate){
             const reserv = document.createElement('div')
             reserv.style.cursor = 'pointer'
             reserv.textContent = `${reservation.reservation_id}  ${reservation.email_address}  ${reservation.date}`
@@ -38,16 +72,47 @@ async function displayReservations(reservations){
             reserv.addEventListener('click', ()=>{
                 let object = encodeURIComponent(JSON.stringify(reservations));
                 window.location.href = `AReservationDetails.html?reservation_id=${reservation.reservation_id}&object=${object}`;
-            })
-        
-        
-        
-        
-            
-        });
-        const showMore = document.createElement('h3')
-            showMore.textContent = "Click to show more"
-            showMore.classList.add('showMore')
-            container.appendChild(showMore)
+            })           
         }
         
+    
+    
+    
+        
+    });
+    const showMore = document.createElement('h3')
+        showMore.textContent = "Click to show more"
+        showMore.classList.add('showMore')
+        container.appendChild(showMore)
+}
+        
+async function showPastReservations(reservations){
+
+    let container = document.getElementById('reservations')
+    container.innerHTML = '';
+
+    reservations.forEach((reservation) => {
+        if(new Date(reservation.date) < currentDate){
+            const reserv = document.createElement('div')
+            reserv.style.cursor = 'pointer'
+            reserv.textContent = `${reservation.reservation_id}  ${reservation.email_address}  ${reservation.date}`
+            reserv.classList.add('reserveName')
+                    container.appendChild(reserv)
+        
+        
+            reserv.addEventListener('click', ()=>{
+                let object = encodeURIComponent(JSON.stringify(reservations));
+                window.location.href = `AReservationDetails.html?reservation_id=${reservation.reservation_id}&object=${object}`;
+            })           
+        }
+        
+    
+    
+    
+        
+    });
+    const showMore = document.createElement('h3')
+        showMore.textContent = "Click to show more"
+        showMore.classList.add('showMore')
+        container.appendChild(showMore)
+}
