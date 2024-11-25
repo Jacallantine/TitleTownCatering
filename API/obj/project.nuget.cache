@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vDhWL5yVBVY=",
+  "dgSpecHash": "KTSejpp+sCQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\jared\\Documents\\11.24\\TitleTownCatering\\API\\API.csproj",
+  "projectFilePath": "C:\\Users\\jared\\Documents\\hurry\\titletowncatering\\api\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jared\\.nuget\\packages\\bouncycastle.cryptography\\2.3.1\\bouncycastle.cryptography.2.3.1.nupkg.sha512",
     "C:\\Users\\jared\\.nuget\\packages\\google.protobuf\\3.26.1\\google.protobuf.3.26.1.nupkg.sha512",

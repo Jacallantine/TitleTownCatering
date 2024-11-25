@@ -391,8 +391,10 @@ footer {
 }
 
 .wrapperB span:nth-child(8){
-    left:40%;
-    animation-delay: 6s;
+    left:45%;
+    animation-delay: 4s;
+    width: 20px;
+    height: 20px;
     
  
 }
@@ -404,8 +406,10 @@ footer {
 
 
 .wrapperB span:nth-child(10){
-    left:90%;
-    animation-delay: 4s;
+    left:85%;
+    animation-delay: 8s;
+    width: 20px;
+    height: 20px;
 }
 
 .wrapperB span:nth-child(11){
@@ -417,11 +421,54 @@ footer {
 
 .wrapperB span:nth-child(12){
     left:70%;
-    animation-delay: 4s;
+    animation-delay:9s;
 }
 .wrapperB span:nth-child(13){
     left:50%;
+    animation-delay: 3.3s;
+}
+.wrapperB span:nth-child(14){
+    box-shadow: 0 0 50px #ffd900, 0 0 100px #ffd900, 0 0 150px #ffd900, 0 0 200px #ffd900;
+    left:70%;
+    animation-delay: 4s;
+}
+.wrapperB span:nth-child(15){
+    left:55%;
+    animation-delay: 1s;
+}
+.wrapperB span:nth-child(16){
+    left:65%;
+    animation-delay: 2.5s;
+}
+.wrapperB span:nth-child(17){
+    left:40%;
+    animation-delay: 6s;
+}
+.wrapperB span:nth-child(18){
+    left:85%;
+    animation-delay: 2s;
+}
+.wrapperB span:nth-child(19){
+    box-shadow: 0 0 50px #ffd900, 0 0 100px #ffd900, 0 0 150px #ffd900, 0 0 200px #ffd900;
+    left:50%;
+    width: 25px;
+    height: 25px;
     animation-delay: 8s;
+}
+
+.wrapperB span:nth-child(20){
+    left:25%;
+    animation-delay: 7s;
+}
+
+.wrapperB span:nth-child(21){
+    left:10%;
+    animation-delay: 5s;
+}
+.wrapperB span:nth-child(22){
+    box-shadow: 0 0 50px #ffd900, 0 0 100px #ffd900, 0 0 150px #ffd900, 0 0 200px #ffd900;
+    left:20%;
+    animation-delay: 4s;
 }
 
 @keyframes animate {

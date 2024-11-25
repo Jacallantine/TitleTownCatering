@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded",()=>{
     console.log(reservation_id)
     FetchFoods()
 })
+FoodList = []
+
+
 
 function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
