@@ -227,13 +227,16 @@ private async Task CreateFoodInstance(FoodInstance foodInstance)
 
         public async Task CreateCustomer(customer newCustomer)
         {
-            string sql = "INSERT INTO customer (email_address, password, first_name, last_name) VALUES (@Email, @Password, @FirstName, @LastName)";
+            string sql = "INSERT INTO customer (email_address, password, first_name, last_name, address, zip, state) VALUES (@Email, @Password, @FirstName, @LastName, @Address, @Zip, @State)";
 
             List<MySqlParameter> parms = new();
             parms.Add(new MySqlParameter("@Email", MySqlDbType.String) { Value = newCustomer.email_address });
             parms.Add(new MySqlParameter("@Password", MySqlDbType.String) { Value = newCustomer.password });
             parms.Add(new MySqlParameter("@FirstName", MySqlDbType.String) { Value = newCustomer.first_name });
             parms.Add(new MySqlParameter("@LastName", MySqlDbType.String) { Value = newCustomer.last_name });
+            parms.Add(new MySqlParameter("@Address", MySqlDbType.String) { Value = newCustomer.address });
+            parms.Add(new MySqlParameter("@Zip", MySqlDbType.Int32) { Value = newCustomer.zip });
+            parms.Add(new MySqlParameter("@State", MySqlDbType.String) { Value = newCustomer.state });
 
 
             await CreateAccount(sql, parms);

@@ -17,11 +17,14 @@ async function createUser(){
             first_name: first_name,
             last_name: last_name,
             password : password,
-            email_address: email_address
+            email_address: email_address,
+            address: address,
+            zip: zipcode,
+            state: state
 
         })
 })
-.then(window.open("signIn.html", "_self"));
+// .then(window.open("signIn.html", "_self"));
 
     
    
