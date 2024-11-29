@@ -44,6 +44,29 @@ namespace API.DATABASE
             return foods;
         }
 
+
+          private async Task<List<ReservationTime>> GetAllReservationTimes(string sql, List<MySqlParameter> parms)
+        {
+            List<ReservationTime> reservationtime = new();
+            using var connection = new MySqlConnection(cs);
+            await connection.OpenAsync();
+            using var command = new MySqlCommand(sql, connection);
+            if (parms != null)
+            {
+                command.Parameters.AddRange(parms.ToArray());
+            }
+            using var reader = command.ExecuteReader();
+            while (await reader.ReadAsync())
+            {
+                reservationtime.Add(new ReservationTime()
+                {
+                    DateTime = reader.GetString(0) 
+                });
+            }
+            return reservationtime;
+        }
+
+
   private async Task<List<reservation>> GetAllCustomerReservation(string sql, List<MySqlParameter> parms)
 {
     List<reservation> reservations = new();
@@ -287,6 +310,14 @@ public async Task<List<food>> FoodProxy()
     string sql = @"Select * from food";
       List<MySqlParameter> parms = new();
     return await GetAllFoods(sql, parms);
+}
+
+
+public async Task<List<ReservationTime>> ReservationTimeProxy()
+{
+    string sql = @"select date from reservations";
+      List<MySqlParameter> parms = new();
+    return await GetAllReservationTimes(sql, parms);
 }
 
 

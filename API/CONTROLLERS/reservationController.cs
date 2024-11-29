@@ -23,8 +23,16 @@ namespace API.CONTROLLERS
                Database myDatabase = new();
                return await myDatabase.GetAllReservations();
           }
+
+
+            [HttpGet("datetime")]
+          public async Task<List<ReservationTime>> GetFoods()
+          {
+               Database myDatabase = new();
+               return await myDatabase.ReservationTimeProxy();
+          }
           [HttpGet("food")]
-          public async Task<List<food>> GetFoods()
+          public async Task<List<food>> GetReservationTimes()
           {
                Database myDatabase = new();
                return await myDatabase.FoodProxy();
@@ -35,8 +43,6 @@ public async void Post([FromBody] reservation request)
 {
     Database myDatabase = new();
     
-
-    // Log the incoming request for debugging
     Console.WriteLine($"Received Reservation: {JsonConvert.SerializeObject(request)}");
     Console.WriteLine($"Received FoodInstances: {JsonConvert.SerializeObject(request.FoodInstances)}");
     
