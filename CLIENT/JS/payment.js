@@ -28,7 +28,8 @@ async function createReservation(){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(deserializedData)
-    }).then( window.location.href = `customerDash.html?email_address=${email_address}&first_name=${first_name}`)
+    })
+    .then( window.location.href = `customerDash.html?email_address=${email_address}&first_name=${first_name}`)
 
    
 

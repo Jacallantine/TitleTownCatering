@@ -96,7 +96,7 @@ async function fetchReservations(){
                 
                     reserv.addEventListener('click', ()=>{
                         let object = encodeURIComponent(JSON.stringify(reservations));
-                        window.location.href = `CReservationDetails.html?reservation_id=${reservation.reservation_id}&object=${object}`;
+                        window.open(`CReservationDetails.html?reservation_id=${reservation.reservation_id}&object=${object}`, '_blank');
                     })
                 }
         })
@@ -125,7 +125,7 @@ async function fetchReservations(){
                 
                     reserv.addEventListener('click', ()=>{
                         let object = encodeURIComponent(JSON.stringify(reservations));
-                        window.location.href = `CReservationDetails.html?reservation_id=${reservation.reservation_id}&object=${object}`;
+                        window.open(`CReservationDetails.html?reservation_id=${reservation.reservation_id}&object=${object}`, '_blank');
                     })
                 }
         })

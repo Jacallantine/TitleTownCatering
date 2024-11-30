@@ -1,6 +1,8 @@
 const currentDate = new Date();
 let reservationsList = [];
 
+
+
 document.addEventListener('DOMContentLoaded', ()=>{
     fetchAllReservations()
     let current = document.getElementById("current")
@@ -62,18 +64,33 @@ async function showCurrentReservations(reservations){
     let container = document.getElementById('reservations')
     container.innerHTML = '';
 
+    let title = document.getElementById("title")
+    title.textContent = 'CURRENT RESERVATIONS'
+
     reservations.forEach((reservation) => {
-        if(new Date(reservation.date) > currentDate){
+        if(new Date(reservation.date) > currentDate && reservation.isComplete === 0){
+            const reservationContainer = document.createElement('div')
+            reservationContainer.classList.add("reservationContainer")
             const reserv = document.createElement('div')
+            const btn = document.createElement('button')
             reserv.style.cursor = 'pointer'
-            reserv.textContent = `${reservation.reservation_id}  ${reservation.email_address}  ${reservation.date}`
+            btn.style.cursor = "pointer"
+            reserv.textContent = `${reservation.reservation_id}  ${reservation.email_address} `
+            btn.textContent ="Mark as Complete"
             reserv.classList.add('reserveName')
-                    container.appendChild(reserv)
+            btn.classList.add("markButton")
+                    reservationContainer.appendChild(reserv)
+                    reservationContainer.appendChild(btn)
+
+                    container.appendChild(reservationContainer)
         
+            btn.addEventListener('click', ()=>{
+                MarkComplete(reservation.reservation_id)
+            })
         
             reserv.addEventListener('click', ()=>{
                 let object = encodeURIComponent(JSON.stringify(reservations));
-                window.location.href = `AReservationDetails.html?reservation_id=${reservation.reservation_id}&object=${object}`;
+                window.open(`AReservationDetails.html?reservation_id=${reservation.reservation_id}&object=${object}`, '_blank');
             })           
         }
         
@@ -93,8 +110,11 @@ async function showPastReservations(reservations){
     let container = document.getElementById('reservations')
     container.innerHTML = '';
 
+    let title = document.getElementById("title")
+    title.textContent = 'PAST RESERVATIONS'
+
     reservations.forEach((reservation) => {
-        if(new Date(reservation.date) < currentDate){
+        if(new Date(reservation.date) < currentDate || reservation.isComplete === 1){
             const reserv = document.createElement('div')
             reserv.style.cursor = 'pointer'
             reserv.textContent = `${reservation.reservation_id}  ${reservation.email_address}  ${reservation.date}`
@@ -104,7 +124,7 @@ async function showPastReservations(reservations){
         
             reserv.addEventListener('click', ()=>{
                 let object = encodeURIComponent(JSON.stringify(reservations));
-                window.location.href = `AReservationDetails.html?reservation_id=${reservation.reservation_id}&object=${object}`;
+                window.open(`AReservationDetails.html?reservation_id=${reservation.reservation_id}&object=${object}`, '_blank');
             })           
         }
         
@@ -117,4 +137,21 @@ async function showPastReservations(reservations){
         showMore.textContent = "Click to show more"
         showMore.classList.add('showMore')
         container.appendChild(showMore)
+}
+
+
+function MarkComplete(reservation_id){
+    fetch(`http://localhost:5220/api/reservation/${reservation_id}`,{
+
+    method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            reservation_id: reservation_id 
+        })
+    })
+    .then(showCurrentReservations())
+
+
 }

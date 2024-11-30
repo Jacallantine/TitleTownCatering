@@ -7,6 +7,7 @@ namespace API.MODELS{
         public string email_address { get; set; }
         public DateTime date { get; set; }
         public string address { get; set; }
+        public int isComplete { get; set; }
         public List<FoodInstance> FoodInstances { get; set; } = new List<FoodInstance>();
 }
 }

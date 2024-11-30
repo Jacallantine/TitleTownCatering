@@ -54,6 +54,14 @@ public async void Post([FromBody] reservation request)
     
 }
 
+[HttpPut("{reservation_id}")]
+
+public async void Put([FromBody] ReservationDto update)
+{
+     Database myDatabase = new();
+     await myDatabase.isCompleteProxy(update.reservation_id);
+}
+
 
 
 

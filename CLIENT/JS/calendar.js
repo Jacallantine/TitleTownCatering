@@ -2,12 +2,18 @@ document.addEventListener("DOMContentLoaded", ()=>{
 var email_address = getQueryParam("email_address");
 console.log(email_address)
 
+FetchReservationTimes()
+
 })
+const email_address = getQueryParam("email_address")
 
 function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param);
 }
+
+ReservationTimes = []
+
 
 const calendarBody = document.getElementById("calendar-body");
 const monthYearDisplay = document.getElementById("month-year");
@@ -81,39 +87,70 @@ function showAvailableHours(date) {
     hoursList.innerHTML = ''; 
     saveButton.style.display = 'none';
 
-  
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); 
+    const day = String(date.getDate()).padStart(2, '0');
+
     for (let hour = 8; hour <= 18; hour++) {
         const timeSlot = document.createElement('div');
         timeSlot.className = 'time-slot';
         timeSlot.textContent = `${hour}:00`;
+
         
-        timeSlot.onclick = () => selectHour(hour);
+        const timeString = `${year}-${month}-${day} ${String(hour).padStart(2, '0')}:00:00`;
+
+       
+        const isReserved = ReservationTimes.some(reservation => reservation.dateTime === timeString);
+        if (isReserved) {
+            timeSlot.classList.add('reserved');
+        } else {
+            timeSlot.onclick = () => selectHour(hour);
+        }
 
         hoursList.appendChild(timeSlot);
     }
 }
 
+
 function selectHour(hour) {
-   
     selectedDateTime.setHours(hour, 0, 0, 0);
 
-  
     const allSlots = document.querySelectorAll('.time-slot');
     allSlots.forEach(slot => slot.classList.remove('selected'));
-    
+
     event.target.classList.add('selected');
-    
-    
     saveButton.style.display = 'block';
 }
 
-function saveReservation(email_address) {
-    console.log('Reservation saved:', selectedDateTime);
-    let first_name = getQueryParam("first_name")
-    var email_address = getQueryParam("email_address");
-    window.location.href = `reservation.html?DateTime=${selectedDateTime}&email_address=${email_address}&first_name=${first_name}`;
-    saveButton.style.display = 'none';
+
+function saveReservation() {
+    const year = selectedDateTime.getFullYear();
+    const month = String(selectedDateTime.getMonth() + 1).padStart(2, '0');
+    const day = String(selectedDateTime.getDate()).padStart(2, '0');
+    const hour = String(selectedDateTime.getHours()).padStart(2, '0');
+
+    const dateString = `${year}-${month}-${day} ${hour}:00:00`;
+    
+    
+    ReservationTimes.push(dateString);
+
+    console.log('Reservation saved:', dateString);
+
+    
+    let first_name = getQueryParam("first_name");
+    window.location.href = `reservation.html?DateTime=${dateString}&email_address=${email_address}&first_name=${first_name}`;
 }
+
+
+const style = document.createElement('style');
+style.textContent = `
+    .time-slot.reserved {
+        background-color: grey;
+        color: white;
+        pointer-events: none; 
+    }
+`;
+document.head.appendChild(style);
 
 prevMonthBtn.onclick = () => {
     currentDate.setMonth(currentDate.getMonth() - 1);
@@ -131,5 +168,21 @@ updateCalendar();
 saveButton.addEventListener("click", ()=>{
 saveReservation()
 })
+
+
+async function FetchReservationTimes(){ 
+    fetch(`http://localhost:5220/api/reservation/datetime`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(async (response) => {
+        let data = await response.json();
+        
+            console.log("Reservation Times:", data);  
+            ReservationTimes = data
+      
+    })}
 
 

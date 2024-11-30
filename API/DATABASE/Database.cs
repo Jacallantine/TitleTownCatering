@@ -44,6 +44,22 @@ namespace API.DATABASE
             return foods;
         }
 
+        public async void IsComplete(string sql, List<MySqlParameter> parameters)
+{
+    using (var connection = new MySqlConnection(cs))
+    {
+        await connection.OpenAsync();
+
+        using (var command = new MySqlCommand(sql, connection))
+        {
+            command.Parameters.AddRange(parameters.ToArray());
+
+            await command.ExecuteNonQueryAsync();
+        }
+    }
+}
+
+
 
           private async Task<List<ReservationTime>> GetAllReservationTimes(string sql, List<MySqlParameter> parms)
         {
@@ -95,6 +111,7 @@ namespace API.DATABASE
                 email_address = reader.GetString(reader.GetOrdinal("email_address")),
                 date = DateTime.Parse(reader.GetString(reader.GetOrdinal("date"))), 
                 address = reader.GetString(reader.GetOrdinal("address")),
+                isComplete = reader.GetInt32(reader.GetOrdinal("isComplete")),
                 FoodInstances = new List<FoodInstance>()
             };
 
@@ -276,6 +293,7 @@ private async Task CreateFoodInstance(FoodInstance foodInstance)
     r.email_address, 
     r.date, 
     r.address,
+    r.isComplete,
     fi.food_id,
     fi.quantity
 FROM 
@@ -320,6 +338,16 @@ public async Task<List<ReservationTime>> ReservationTimeProxy()
     return await GetAllReservationTimes(sql, parms);
 }
 
+
+public async Task isCompleteProxy(int reservation_id)
+{
+    string sql = @"UPDATE reservations set isComplete = 1 Where reservation_id = @reservation_id";
+    List<MySqlParameter> parms = new()
+    {
+        new MySqlParameter("@reservation_id", reservation_id)
+    };
+     IsComplete(sql, parms);
+}
 
 
 
