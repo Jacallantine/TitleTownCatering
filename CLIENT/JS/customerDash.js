@@ -93,7 +93,14 @@ async function fetchReservations(){
                 {
                     const reserv = document.createElement('div')
                     reserv.style.cursor = 'pointer'
-                    reserv.textContent = `${reservation.reservation_id}  ${reservation.email_address}`
+                    const formattedDateTime = new Date(reservation.date).toLocaleString('en-US', {
+                        month: 'short',   
+                        day: 'numeric',    
+                        hour: '2-digit',   
+                        minute: '2-digit', 
+                        hour12: true       
+                    });
+                    reserv.textContent = ` ${formattedDateTime}`
                     reserv.classList.add('reserveName')
                             container.appendChild(reserv)
                 
@@ -122,7 +129,14 @@ async function fetchReservations(){
                 {
                     const reserv = document.createElement('div')
                     reserv.style.cursor = 'pointer'
-                    reserv.textContent = `${reservation.reservation_id}  ${reservation.email_address}`
+                    const formattedDateTime = new Date(reservation.date).toLocaleString('en-US', {
+                        month: 'short',   
+                        day: 'numeric',    
+                        hour: '2-digit',   
+                        minute: '2-digit', 
+                        hour12: true       
+                    });
+                    reserv.textContent = `${formattedDateTime}`
                     reserv.classList.add('reserveName')
                             container.appendChild(reserv)
                 

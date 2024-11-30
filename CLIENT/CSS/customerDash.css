@@ -71,13 +71,15 @@ body{
     position: relative;
     margin-top: 20px;
     transition: 0.7s;
+    text-align: center;
+    font-size: 26px;
 }
 
 .reserveName::before{
     content: "";
     bottom: -2px;
     left: 0;
-    height: 2px;
+    height: 3px;
     width: 0;
     background-color: white;
     position: absolute;
@@ -233,3 +235,4 @@ body{
     height: 60px;
    
 }
+

@@ -54,12 +54,22 @@ public async void Post([FromBody] reservation request)
     
 }
 
-[HttpPut("{reservation_id}")]
+[HttpPut("MarkComplete")]
 
-public async void Put([FromBody] ReservationDto update)
+public async void PutComplete([FromBody] ReservationDto update)
 {
      Database myDatabase = new();
      await myDatabase.isCompleteProxy(update.reservation_id);
+}
+
+
+
+[HttpPut("MarkInComplete")]
+
+public async void PutInComplete([FromBody] ReservationDto update)
+{
+     Database myDatabase = new();
+     await myDatabase.inCompleteProxy(update.reservation_id);
 }
 
 

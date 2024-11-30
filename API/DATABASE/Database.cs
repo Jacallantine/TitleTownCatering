@@ -351,6 +351,18 @@ public async Task isCompleteProxy(int reservation_id)
 
 
 
+public async Task inCompleteProxy(int reservation_id)
+{
+    string sql = @"UPDATE reservations set isComplete = 0 Where reservation_id = @reservation_id";
+    List<MySqlParameter> parms = new()
+    {
+        new MySqlParameter("@reservation_id", reservation_id)
+    };
+     IsComplete(sql, parms);
+}
+
+
+
 
 
 
