@@ -16,6 +16,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 
 })
+
+function customerDash(){
+    window.location.href = `customerDash.html?email_address=${email_address}&first_name=${first_name}`
+}
 const currentDate = new Date();
 let reservationsData = []
 

@@ -3,18 +3,28 @@ document.addEventListener('DOMContentLoaded', ()=>{
    hideAll(menuItem)
    var DateTime = getQueryParam("DateTime")
    var email_address = getQueryParam("email_address")
+   let name = getQueryParam("first_name")
+   let signIn = document.getElementById("signIn")
+   signIn.textContent = name
    console.log(DateTime)
    console.log(email_address)
    console.log(reservation_id)
+
+   FetchFoods()
 
    
     
 })
 
+function customerDash(){
+    window.location.href = `customerDash.html?email_address=${email_address}&first_name=${first_name}`
+}
+
 
 const menuItem = ["breakFast-entree", "lunch-entree", "dinner-entree", "drink-option", "side-option" ]
 
 const email_address = getQueryParam("email_address")
+const first_name = getQueryParam("first_name")
 const DateTime = getQueryParam("DateTime")
 const reservation_id = GUID()
 
@@ -94,7 +104,15 @@ function RetrieveInstances(){
         // Dinner
         { reservation_id: reservation_id, food_id: 1242, quantity: parseInt(S.value) },
         { reservation_id: reservation_id, food_id: 1243, quantity: parseInt(FC.value) },
-        { reservation_id: reservation_id, food_id: 1244, quantity: parseInt(B.value) }
+        { reservation_id: reservation_id, food_id: 1244, quantity: parseInt(B.value) },
+        // Side
+        { reservation_id: reservation_id, food_id: 1245, quantity: parseInt(mac.value) },
+        { reservation_id: reservation_id, food_id: 1246, quantity: parseInt(mash.value) },
+        { reservation_id: reservation_id, food_id: 1247, quantity: parseInt(CNG.value) },
+
+        { reservation_id: reservation_id, food_id: 1248, quantity: parseInt(sweetTea.value) },
+        { reservation_id: reservation_id, food_id: 1249, quantity: parseInt(coke.value) },
+        { reservation_id: reservation_id, food_id: 1250, quantity: parseInt(lemonade.value) },
     ];
     
     let currentReservation = {
@@ -170,17 +188,17 @@ function totalSideCost(){
 function TotalEntreeCost() {
 
     const entrees = [
-        {id: 'biscuit', price: 20},
-        {id: 'SENC', price: 20},
-        {id: 'ENC', price : 20},
-        {id: 'SB', price: 20},
-        {id: 'chickenSandwich', price: 20},
-        {id: 'poBoy', price : 20},
-        {id: 'cheeseBurger', price: 20},
-        {id: 'hotDog', price: 20},
-        {id: 'steak', price: 20},
-        {id: 'friedCatfish', price: 20},
-        {id: 'boil', price: 20},
+        {id: 'biscuit', price: 50},
+        {id: 'SENC', price: 60},
+        {id: 'ENC', price : 55},
+        {id: 'SB', price: 55},
+        {id: 'chickenSandwich', price: 50},
+        {id: 'poBoy', price : 45},
+        {id: 'cheeseBurger', price: 45},
+        {id: 'hotDog', price: 40},
+        {id: 'steak', price: 100},
+        {id: 'friedCatfish', price: 65},
+        {id: 'boil', price: 85}
     ]
 
     let entreeCost = entrees.reduce((total, entree) =>{
@@ -235,3 +253,19 @@ function getQueryParam(param) {
 function GUID() {
     return Math.floor(1000 + Math.random() * 9000)
 }
+
+
+async function FetchFoods(){ 
+    fetch(`http://localhost:5220/api/reservation/food`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(async (response) => {
+        let data = await response.json();
+        
+            console.log("Food List:", data);  
+            FoodList = data
+      
+    })}
