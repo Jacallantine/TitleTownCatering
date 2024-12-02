@@ -57,7 +57,7 @@ function DisplayInfo(reservations, reservation_id){
     let html = `<ul>`
     reservations.forEach((reservation) => {
         if(reservation.reservation_id == reservation_id){
-            html += `<li>Includes ${reservation.quantity * 20} servings of ${reservation.foodName}</li>`
+            html += `<li>Includes ${reservation.quantity * 24} servings of ${reservation.foodName}</li>`
             document.getElementById("date").innerHTML = reservation.date
         }
     })
