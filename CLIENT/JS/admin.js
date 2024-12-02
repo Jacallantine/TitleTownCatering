@@ -1,5 +1,5 @@
 const currentDate = new Date();
-reservationsList = [];
+let reservationsList = [];
 
 
 
@@ -110,7 +110,7 @@ async function showCurrentReservations(){
             })
         
             reserv.addEventListener('click', ()=>{
-                let object = encodeURIComponent(JSON.stringify(reservations));
+                let object = encodeURIComponent(JSON.stringify(reservationsList));
                 window.open(`AReservationDetails.html?reservation_id=${reservation.reservation_id}&object=${object}`, '_blank');
             })           
         }
@@ -164,7 +164,7 @@ async function showPastReservations(){
         
         
             reserv.addEventListener('click', ()=>{
-                let object = encodeURIComponent(JSON.stringify(reservations));
+                let object = encodeURIComponent(JSON.stringify(reservationsList));
                 window.open(`AReservationDetails.html?reservation_id=${reservation.reservation_id}&object=${object}`, '_blank');
             })           
         }

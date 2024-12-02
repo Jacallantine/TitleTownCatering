@@ -14,3 +14,11 @@ body{
     margin: auto;
     
 }
+
+#reservation_id{
+    text-indent: 50px;
+}
+
+#date{
+    text-indent: 50px;
+}
