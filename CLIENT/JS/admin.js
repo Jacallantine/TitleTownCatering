@@ -4,6 +4,10 @@ let reservationsList = [];
 
 
 document.addEventListener('DOMContentLoaded', ()=>{
+
+    let name = getQueryParam("first_name")
+
+    document.getElementById("signIn").textContent = name
     fetchAllReservations1()
     showCurrentReservations()
     let current = document.getElementById("current")
@@ -23,6 +27,18 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
 })
 
+
+
+function admin(){
+    window.location.href = `admin.html?email_address=${email_address}&first_name=${first_name}`
+}
+
+
+
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
 
 
 

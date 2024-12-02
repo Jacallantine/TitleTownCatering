@@ -311,10 +311,10 @@ ORDER BY
 public async Task CreateReservation(reservation reservationData)
 {
 
-    // Create reservation logic
+  
     await CreateReservationLogic(reservationData);
 
-    // Proceed with food instances creation
+  
 
     foreach(var foodInstance in reservationData.FoodInstances){
         await CreateFoodInstance(foodInstance);
@@ -364,7 +364,7 @@ public async Task inCompleteProxy(int reservation_id)
 
 
 
-// my edits
+
 public async Task<List<reservationInfo>> ReservationInfo(){
     List<reservationInfo> reservationInfo = new();
     using var connection = new MySqlConnection(cs);
@@ -384,6 +384,6 @@ public async Task<List<reservationInfo>> ReservationInfo(){
     }
     return reservationInfo;
 }
-// end my edits
+
     }
 }

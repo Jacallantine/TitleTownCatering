@@ -160,7 +160,7 @@ function totalBeverageCost() {
     }, 0);
 
     document.getElementById('beverages').value = drinkCost.toFixed(2);
-    totalCost();
+    TotalCost();
 }
 
 

@@ -37,8 +37,7 @@ namespace API.CONTROLLERS
                Database myDatabase = new();
                return await myDatabase.FoodProxy();
           }
-          //my edits
-          // should be perfect 
+          
 
           [HttpGet("reservationInfo")]
           public async Task<List<reservationInfo>> GetReservationInfo()
@@ -47,7 +46,7 @@ namespace API.CONTROLLERS
                return await myDatabase.ReservationInfo();
           }
 
-          //end my edits
+       
 
 [HttpPost]
 public async void Post([FromBody] reservation request)
