@@ -2,6 +2,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let combinedData = getQueryParam("combinedData");
     let deserializedData = JSON.parse(decodeURIComponent(combinedData));
     let email_address = getQueryParam("email_address")
+    let cost = getQueryParam("cost")
+
+    document.getElementById("paymentAmount").textContent = `You owe $${cost}`
     console.log(email_address)
     console.log(deserializedData)
 });

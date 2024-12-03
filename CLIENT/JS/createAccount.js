@@ -24,7 +24,7 @@ async function createUser(){
 
         })
 })
-// .then(window.open("signIn.html", "_self"));
+.then(window.open("signIn.html", "_self"));
 
     
    
