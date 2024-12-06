@@ -9,7 +9,10 @@ document.addEventListener("DOMContentLoaded",()=>{
     console.log(reservation_id)
     FetchFoods()
     FetchReservations(reservation_id);
+   
 })
+const reservation_id = getQueryParam("reservation_id")
+console.log(reservation_id)
 
 
 
@@ -51,6 +54,7 @@ async function FetchReservations(reservation_id){
     })
 }
 
+
 function DisplayInfo(reservations, reservation_id){
     console.log(reservations)
     let html = `<ul>`
@@ -58,6 +62,7 @@ function DisplayInfo(reservations, reservation_id){
         if(reservation.reservation_id == reservation_id){
             html += `<li>Includes ${reservation.quantity * 24} servings of ${reservation.foodName}</li>`
             document.getElementById("date").innerHTML = reservation.date
+            document.getElementById("venue").innerHTML = reservation.address
         }
     })
     html += `</ul>`

@@ -370,7 +370,7 @@ public async Task<List<reservationInfo>> ReservationInfo(){
     using var connection = new MySqlConnection(cs);
     await connection.OpenAsync();
 
-    using var command = new MySqlCommand("select fi.reservation_id, fi.food_id, quantity, date, food_name from food_instance fi join reservations r on fi.reservation_id = r.reservation_id join food f on fi.food_id = f.food_id;", connection);
+    using var command = new MySqlCommand("select fi.reservation_id, fi.food_id, quantity, date, food_name, address from food_instance fi join reservations r on fi.reservation_id = r.reservation_id join food f on fi.food_id = f.food_id;", connection);
 
     using var reader = await command.ExecuteReaderAsync();
     while(await reader.ReadAsync()){
@@ -380,6 +380,7 @@ public async Task<List<reservationInfo>> ReservationInfo(){
             quantity = reader.GetInt32(2),
             date = reader.GetString(3),
             foodName = reader.GetString(4),
+            address = reader.GetString(5)
         });
     }
     return reservationInfo;

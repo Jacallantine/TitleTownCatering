@@ -7,5 +7,6 @@ namespace API.MODELS
         public int quantity { get; set; }
         public string date { get; set; }
         public string foodName { get; set; }
+        public string address { get; set; }
     }
 }

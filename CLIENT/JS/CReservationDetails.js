@@ -59,6 +59,7 @@ function DisplayInfo(reservations, reservation_id){
         if(reservation.reservation_id == reservation_id){
             html += `<li>Includes ${reservation.quantity * 24} servings of ${reservation.foodName}</li>`
             document.getElementById("date").innerHTML = reservation.date
+            document.getElementById("venue").innerHTML = reservation.address
         }
     })
     html += `</ul>`
